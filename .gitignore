@@ -1,0 +1,24 @@
+# Environment
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+
+# Data / local scratch
+data/*.json
+data/*.csv
+!data/.gitkeep
+
+# Postgres local volume
+pgdata/
+
+# Node (n8n local, if used)
+node_modules/
+
+# OS
+.DS_Store

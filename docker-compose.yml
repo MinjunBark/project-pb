@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: gtm_signal_engine_db
+    environment:
+      POSTGRES_USER: gtm
+      POSTGRES_PASSWORD: gtm_dev_password
+      POSTGRES_DB: gtm_signal_engine
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+volumes:
+  pgdata:
