@@ -13,34 +13,33 @@
 - [x] `docs/PROGRESS.md`, `docs/DECISIONS.md`, `docs/ISSUES.md`, `docs/TASKS.md`
 
 **Accounts (user creates — Claude guides step-by-step, does not sign up on your behalf):**
-- [ ] AWS account (free tier) — needed for S3 + Lambda in Phases 2 & 4
-- [ ] Clay account — needed for Phase 7 enrichment
-- [ ] n8n account (cloud, free tier) — needed for Phase 9 workflow assembly
-- [ ] HubSpot developer account + sandbox + Private App token — needed for Phase 6/9
-- [ ] Gemini API key(s) — needed for Phase 5 (classification) and Phase 8 (outreach)
-- [ ] Crunchbase API key — needed for Phase 1 (funding signal)
-- [ ] Apify account — needed for Phase 1 (LinkedIn) and Phase 2 (G2)
-- [ ] Docker Desktop installed and running — needed for local Postgres
-- [ ] Copy `.env.example` to `.env` and fill in keys as each account is created
+- [x] AWS account — has console access, but AWS is now narrative-only (see ADR-003) since billing registration was required for IAM and user opted out
+- [x] Clay account
+- [x] n8n account (cloud)
+- [ ] HubSpot regular free CRM account (hubspot.com, NOT developers.hubspot.com — Private Apps don't exist in Developer accounts at all) → Private App token from Settings → Integrations → Private Apps
+- [x] Gemini API key(s)
+- [x] Crunchbase account — Basic tier, no API access; replaced by SEC EDGAR (see ADR-008), no signup needed for EDGAR
+- [x] Apify account
+- [x] Docker Desktop installed
+- [x] Copy `.env.example` to `.env` and fill in keys — Apify, Gemini (x2), HubSpot Private App token all set; Clay/Google Sheets/Discord intentionally left blank until their phases
 
 ## Phase 1 — Branch A + B
-- [ ] Crunchbase funding query (Series A/B, last 90 days, SaaS)
+- [x] SEC EDGAR Form D query (`python/funding_edgar.py`) — search + fetch details + approximate stage from offering amount; 12 pytest cases; verified live against the real API
 - [ ] Apify LinkedIn PM job scraper
 - [ ] Standalone Python tests for both before n8n wiring
 
-## Phase 2 — Branch C + S3 landing
+## Phase 2 — Branch C + local landing
 - [ ] Apify G2 review scraper
-- [ ] S3 bucket created, raw signal landing wired for all 3 branches
+- [ ] Local raw-signal landing (data/ or Postgres staging table) wired for all 3 branches
 
 ## Phase 3 — Postgres dedupe/merge
 - [ ] `utils/db.py` connection helper
 - [ ] `sql/queries.sql` dedup + reporting queries
 - [ ] Merge/normalize/dedupe logic replacing `seen_companies.json`
 
-## Phase 4 — Scoring on Lambda
+## Phase 4 — Scoring API
 - [ ] `python/scoring.py` + `tests/test_scoring.py`
-- [ ] `api/main.py` FastAPI app
-- [ ] Deployed to Lambda via Mangum + API Gateway
+- [ ] `api/main.py` FastAPI app, run locally via `uvicorn`
 
 ## Phase 5 — Gemini classification
 - [ ] `python/classify.py` + `tests/test_classify.py`
@@ -60,7 +59,7 @@
 
 ## Phase 9 — Output fan-out + full assembly
 - [ ] `utils/sheets.py`, `utils/discord.py`
-- [ ] `n8n/workflow.json` full assembly
+- [ ] User builds the n8n workflow in the UI (Claude guides node-by-node); optional exported `n8n/workflow.json` snapshot
 - [ ] End-to-end live run
 
 ## Phase 10 — Polish + narrative prep
