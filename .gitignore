@@ -14,9 +14,6 @@ data/*.json
 data/*.csv
 !data/.gitkeep
 
-# Postgres local volume
-pgdata/
-
 # Node (n8n local, if used)
 node_modules/
 
