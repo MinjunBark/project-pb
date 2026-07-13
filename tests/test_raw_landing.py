@@ -46,3 +46,36 @@ def test_load_latest_raw_signals_picks_most_recent(monkeypatch):
     loaded = raw_landing.load_latest_raw_signals("branch_b")
 
     assert loaded == [{"version": 2}]
+
+
+def test_load_latest_raw_signals_uses_file_mtime_not_filename_string_sort():
+    """Regression test for a real bug caught during a live Phase 6 merge run
+    (docs/ISSUES.md): an old file named "branch_a_funding_<timestamp>.json"
+    (a leftover from earlier ad-hoc testing) matched the same glob pattern as
+    the real "branch_a_<timestamp>.json" convention, and sorted AFTER it as
+    a plain string ('f' > a digit) despite being chronologically older. That
+    caused a live merge to silently reload stale 8-company data instead of a
+    freshly-landed 22-company run. This test builds that exact scenario -
+    older file gets a differently-prefixed name that would out-sort the
+    newer one alphabetically - and confirms mtime-based selection picks the
+    chronologically latest file regardless of filename string ordering."""
+    older_path = Path(raw_landing.LANDING_DIR)
+    older_path.mkdir(parents=True, exist_ok=True)
+    stale_file = older_path / "branch_a_funding_20260710T004132Z.json"
+    stale_file.write_text('[{"version": "stale"}]')
+
+    # Newer file, but its filename sorts BEFORE the stale one as a plain
+    # string ('2' < 'f') - the exact condition that broke the old sort.
+    fresh_file = older_path / "branch_a_20260711T022934Z.json"
+    fresh_file.write_text('[{"version": "fresh"}]')
+
+    import os
+    import time
+
+    now = time.time()
+    os.utime(stale_file, (now - 100, now - 100))  # older mtime
+    os.utime(fresh_file, (now, now))  # newer mtime
+
+    loaded = raw_landing.load_latest_raw_signals("branch_a")
+
+    assert loaded == [{"version": "fresh"}]

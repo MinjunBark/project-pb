@@ -91,6 +91,43 @@ def test_normalize_groups_by_company_and_counts():
     assert otherco["pm_job_post_count"] == 1
 
 
+def test_is_staffing_agency_matches_common_industry_words():
+    assert hiring_adzuna._is_staffing_agency("Acme Staffing Solutions")
+    assert hiring_adzuna._is_staffing_agency("Acme Recruiting Group")
+    assert hiring_adzuna._is_staffing_agency("Acme Talent Acquisition Partners")
+
+
+def test_is_staffing_agency_matches_known_curated_names_case_insensitively():
+    assert hiring_adzuna._is_staffing_agency("Robert Half")
+    assert hiring_adzuna._is_staffing_agency("robert half")
+    assert hiring_adzuna._is_staffing_agency("JOBOT")
+
+
+def test_is_staffing_agency_false_for_a_normal_company_name():
+    assert not hiring_adzuna._is_staffing_agency("Acme Corp")
+    assert not hiring_adzuna._is_staffing_agency("Anduril Industries")
+
+
+def test_normalize_excludes_staffing_agency_jobs_entirely():
+    """Real, live-hit case (2026-07-13): a staffing agency's PM posting
+    represents a third-party client's hiring intent, not the agency's own -
+    must never appear in the grouped output at all, unlike a real company
+    whose multiple postings should still be correctly grouped/counted."""
+    staffing_job = {
+        "title": "Product Manager",
+        "company": {"display_name": "Robert Half"},
+        "location": {"display_name": "Chicago, IL"},
+        "created": "2026-06-01T00:00:00Z",
+    }
+
+    results = hiring_adzuna.normalize_adzuna_results([JOB_ACME_1, JOB_ACME_2, staffing_job])
+
+    company_names = {r["company_name"] for r in results}
+    assert company_names == {"Acme Corp"}
+    acme = next(r for r in results if r["company_name"] == "Acme Corp")
+    assert acme["pm_job_post_count"] == 2
+
+
 def test_get_adzuna_hiring_signals_orchestrates_multiple_keywords(monkeypatch):
     calls = []
 

@@ -49,6 +49,17 @@ SOFTWARE_HIT = {
     }
 }
 
+FOREIGN_SOFTWARE_HIT = {
+    "_source": {
+        "ciks": ["0002064764"],
+        "display_names": ["Pulsenmore Ltd.  (CIK 0002064764)"],
+        "file_date": "2026-07-07",
+        "form": "D",
+        "adsh": "0001493152-26-032274",
+        "biz_locations": ["Israel"],
+    }
+}
+
 KEPLER_XML = """<?xml version="1.0"?>
 <edgarSubmission>
     <primaryIssuer>
@@ -87,6 +98,38 @@ def test_missing_user_agent_raises(monkeypatch):
 def test_search_excludes_fund_entities(monkeypatch):
     def fake_get(url, params=None, headers=None, timeout=None):
         return FakeResponse(json_data={"hits": {"hits": [FUND_HIT, SOFTWARE_HIT]}})
+
+    monkeypatch.setattr(funding_edgar.requests, "get", fake_get)
+
+    results = funding_edgar.search_form_d_filings(keywords=["software"])
+
+    assert len(results) == 1
+    assert results[0]["entity_name"] == "Kepler Software, Inc."
+
+
+@pytest.mark.parametrize(
+    "biz_location,expected",
+    [
+        ("San Francisco, CA", True),
+        ("Pittsburgh, PA", True),
+        ("Wilmington, DE", True),
+        ("Israel", False),
+        ("London", False),
+        (None, False),
+        ("", False),
+    ],
+)
+def test_is_us_location(biz_location, expected):
+    assert funding_edgar.is_us_location(biz_location) is expected
+
+
+def test_search_excludes_non_us_companies(monkeypatch):
+    """Real bug found 2026-07-10 (docs/ISSUES.md): a live run returned
+    Pulsenmore Ltd. (Israel) alongside real US companies - EDGAR has no
+    built-in country filter."""
+
+    def fake_get(url, params=None, headers=None, timeout=None):
+        return FakeResponse(json_data={"hits": {"hits": [SOFTWARE_HIT, FOREIGN_SOFTWARE_HIT]}})
 
     monkeypatch.setattr(funding_edgar.requests, "get", fake_get)
 

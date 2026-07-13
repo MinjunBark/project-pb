@@ -1,0 +1,16 @@
+How SDR captures ABM, TAM, warm leads: 
+They utilize tools like linkedin sales navigator, zoominfo, apollo/clay.
+Issues are there are many platforms to manage and pricey, therefore we must GTM engineers must reengineer these tools to create in house tools for these SDRs
+
+How I want this system to act(i.e. The overall overview and system archiect) 
+Capturing high intent signals <- utilize GTM makefile for this 
+This should showcase which signals to build out 
+We also need to gather data of reviews of all platforms being utilzied per company. 
+This can be gather from job description post from companies who have recent hiring or hired signals 
+Once we decide on a signal, we must find tools, platforms, extension, etc to gather data 
+Connect these tools to CRM, webhooks, spreadsheets, etc 
+Data should be saved and stored (postgres/supabase) <- we need a database for this 
+filtering/scoring layer 
+Need a QA layer here to review the finalize leads forms
+Once reviewed and finalized -> output to a dedicated channel for SDR to work with. 
+Must provide a high-detailed overview summary of the warm lead gen form, signals, intent, reasoning, platform discussion, etc 

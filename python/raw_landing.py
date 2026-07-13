@@ -32,12 +32,20 @@ def save_raw_signals(branch_name: str, data) -> str:
 
 def load_latest_raw_signals(branch_name: str):
     """Load the most recently saved raw file for a given branch, or None if
-    nothing has been landed yet."""
+    nothing has been landed yet.
+
+    Picks "latest" by file modification time, NOT by sorting filenames as
+    strings - a differently-prefixed file matching the same glob pattern
+    (e.g. an old ad-hoc "branch_a_funding_*.json" alongside the real
+    "branch_a_*.json" convention) can sort after a genuinely newer file
+    purely on ASCII ordering ('f' > a digit), silently picking stale data.
+    See docs/ISSUES.md, Phase 6."""
     pattern = os.path.join(LANDING_DIR, f"{branch_name}_*.json")
-    matches = sorted(glob.glob(pattern))
+    matches = glob.glob(pattern)
 
     if not matches:
         return None
 
-    with open(matches[-1]) as f:
+    latest_path = max(matches, key=os.path.getmtime)
+    with open(latest_path) as f:
         return json.load(f)

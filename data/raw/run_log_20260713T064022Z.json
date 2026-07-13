@@ -1,0 +1,1145 @@
+{
+  "run_started_at": "2026-07-13T06:33:58.198804+00:00",
+  "clay_pickup": {
+    "domain_updated": 90,
+    "demographics_updated": 0
+  },
+  "trigger": "auto-resume",
+  "leadership": {
+    "companies_checked": 112,
+    "details": [
+      {
+        "company_name": "Kepler Software, Inc.",
+        "domain": "keplergrp.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Blacksmith Software Inc.",
+        "domain": "blacksmith.sh",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Una Software US Corp.",
+        "domain": "una.ai",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Nova AI Software Inc.",
+        "domain": "novaintelligence.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "InfraSight Software Corp",
+        "domain": "infrasight.software",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "UserFirst Software, Inc.",
+        "domain": "leanlaw.co",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Boom Software, Inc.",
+        "domain": "boomsoftware.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "KHT Software Inc.",
+        "domain": "khttechnology.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "eMotive Software, Inc.",
+        "domain": "emotivesoftware.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Flaunt Software, Inc.",
+        "domain": "flaunt.ai",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Board Management Software, Inc.",
+        "domain": "boardableapp.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Appraisal Dream LLC",
+        "domain": "appraisaldream.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "2ClickFit, Inc.",
+        "domain": "2clickfit.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Platform VCS I, LLC",
+        "domain": "platformv.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Firebird Music Holdings, LLC",
+        "domain": "firebirdmusic.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "DF Platform Exchange, LLC",
+        "domain": "stany.org",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Platform Golf, Ltd.",
+        "domain": "platformgolf.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "MPS Platform Services Inc.",
+        "domain": "mpslimited.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "EQUAL PLATFORM SOLUTIONS INC",
+        "domain": "website-files.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "ServiceBeard",
+        "domain": "teahose.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "FetchSandbox",
+        "domain": "fetchsandbox.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "LevelTen Energy",
+        "domain": "leveltenenergy.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "PacifiCorp",
+        "domain": "pacificorp.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Westmark Credit Union",
+        "domain": "westmark.org",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "OneSeven Tech",
+        "domain": "oneseventech.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Kaiser Permanente",
+        "domain": "kp.org",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Salt",
+        "domain": "welovesalt.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Readdy",
+        "domain": "readdy.ai",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Stellus Rx",
+        "domain": "stellusrx.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Global Partners",
+        "domain": "globalpartners.com.tr",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Shakespeare Company LLC",
+        "domain": "shakespeareco.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Jobot",
+        "domain": "jobot.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "J.P. Morgan",
+        "domain": "jpmorgan.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Twenty",
+        "domain": "twenty.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Lundbeck",
+        "domain": "lundbeck.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Vanguard",
+        "domain": "vanguard.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Sierra",
+        "domain": "sierra.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Verisk",
+        "domain": "verisk.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Stord",
+        "domain": "stord.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Solace",
+        "domain": "solace.health",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Revolut",
+        "domain": "revolut.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Sager Electronics",
+        "domain": "sager.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "LaSalle Network",
+        "domain": "thelasallenetwork.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "GoodLeap",
+        "domain": "goodleap.nl",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Robert Half",
+        "domain": "roberthalf.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Braums",
+        "domain": "braums.com.au",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Tandym Tech",
+        "domain": "tandymgroup.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Mastercard",
+        "domain": "mastercard.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Anduril Industries",
+        "domain": "anduril.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Citizens",
+        "domain": "citizensbank.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Medline Industries",
+        "domain": "medline.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Capital One",
+        "domain": "capitalone.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Oracle",
+        "domain": "oracle.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "BC Forward",
+        "domain": "bcforward.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "AI text Detector",
+        "domain": "pangram.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "lumi - sleep lock & alarm",
+        "domain": "google.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Miller Electric Mfg. LLC",
+        "domain": "millerwelds.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Holley Performance",
+        "domain": "holley.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Kelly Services",
+        "domain": "kellyservices.com.mx",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Gatherly",
+        "domain": "gatherly.io",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Avintra",
+        "domain": "avintra.net",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Lumio",
+        "domain": "lumio.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Bokkiman",
+        "domain": "pokemon.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Public Health Solutions",
+        "domain": "healthsolutions.org",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "RemX",
+        "domain": "remx.xyz",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Beacon Talent",
+        "domain": "beacontalent.co.uk",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Mondo",
+        "domain": "mondo.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "ReSpark Software, Inc.",
+        "domain": "respark.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "SMITH MICRO SOFTWARE, INC.  (SMSI)",
+        "domain": "smithmicro.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Atria Health and Research Institute",
+        "domain": "atria.org",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "JustVibe",
+        "domain": "justvibe.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Second Brain for AI v2",
+        "domain": "fortelabs.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Miora",
+        "domain": "miora.org",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Offer Max",
+        "domain": "offermax.ai",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "LeadSpawn \u2014 Business Leads in Seconds",
+        "domain": "convergehub.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Sapphire Software Parent, LLC",
+        "domain": "sapphireventures.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "MaxCyte, Inc",
+        "domain": "maxcyte.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Zaden Technologies, Inc.",
+        "domain": "zadentech.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Merchants Bank of Indiana",
+        "domain": "bankmerchants.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "CultureMill Recruiting",
+        "domain": "culturemillrecruiting.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Transunion",
+        "domain": "transunion.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Kforce Technology Staffing",
+        "domain": "kforce.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "American Express",
+        "domain": "americanexpress.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "a.v.r.i.z ",
+        "domain": "avriz.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Solvemeet",
+        "domain": "solvemeet.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "New Era Exploration",
+        "domain": "neweraexploration.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "CoverMyCamera",
+        "domain": "privacyguides.net",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "eatsTO \u2014 What's the move tonight?",
+        "domain": "tiktok.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "ThumblifyAI Agent",
+        "domain": "thumblifyai.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Py Manager",
+        "domain": "python.org",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Picto",
+        "domain": "picto.lu",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Make Look Scanned",
+        "domain": "lookscanned.io",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "VeritasGraph",
+        "domain": "pypi.org",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "LINKUP",
+        "domain": "linkup.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Wordmancer",
+        "domain": "wordtech.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "TradeDesk.now",
+        "domain": "thetradedesk.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Lolo Downloader",
+        "domain": "lolo.id",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "PureFeed",
+        "domain": "purefeed.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Long-term Software Governance",
+        "domain": "corporatek.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "ChatNorris",
+        "domain": "service.gov.uk",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "HydroJug",
+        "domain": "thehydrojug.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Optomi",
+        "domain": "optomi.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Odesus, Inc.",
+        "domain": "odesus.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Visium Resources, Inc.",
+        "domain": "visiumresources.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Symbium",
+        "domain": "symbium.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "HireTalent - Staffing & Recruiting Firm",
+        "domain": "hiretalent.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "D24 Search",
+        "domain": "d24search.io",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "seo.bike",
+        "domain": "1digitalagency.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "NotIncluded ",
+        "domain": "bcorporation.net",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "Alfred Scholar",
+        "domain": "alfredscholar.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "NotiText",
+        "domain": "salesforce.com",
+        "new_hire_found": false
+      },
+      {
+        "company_name": "CineKive",
+        "domain": "reddit.com",
+        "new_hire_found": false
+      }
+    ]
+  },
+  "scoring": [
+    {
+      "company_name": "Kepler Software, Inc.",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Blacksmith Software Inc.",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Una Software US Corp.",
+      "icp_score": 0,
+      "signal_type": "NONE"
+    },
+    {
+      "company_name": "Nova AI Software Inc.",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "InfraSight Software Corp",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "UserFirst Software, Inc.",
+      "icp_score": 0,
+      "signal_type": "NONE"
+    },
+    {
+      "company_name": "Boom Software, Inc.",
+      "icp_score": 0,
+      "signal_type": "NONE"
+    },
+    {
+      "company_name": "KHT Software Inc.",
+      "icp_score": 0,
+      "signal_type": "NONE"
+    },
+    {
+      "company_name": "eMotive Software, Inc.",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Flaunt Software, Inc.",
+      "icp_score": 0,
+      "signal_type": "NONE"
+    },
+    {
+      "company_name": "Board Management Software, Inc.",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Appraisal Dream LLC",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "2ClickFit, Inc.",
+      "icp_score": 0,
+      "signal_type": "NONE"
+    },
+    {
+      "company_name": "Platform VCS I, LLC",
+      "icp_score": 0,
+      "signal_type": "NONE"
+    },
+    {
+      "company_name": "Firebird Music Holdings, LLC",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "DF Platform Exchange, LLC",
+      "icp_score": 0,
+      "signal_type": "NONE"
+    },
+    {
+      "company_name": "Platform Golf, Ltd.",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "MPS Platform Services Inc.",
+      "icp_score": 0,
+      "signal_type": "NONE"
+    },
+    {
+      "company_name": "EQUAL PLATFORM SOLUTIONS INC",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Miller Electric Mfg. LLC",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Holley Performance",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Kelly Services",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Gatherly",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Avintra",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Lumio",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "ServiceBeard",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "FetchSandbox",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "LevelTen Energy",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "PacifiCorp",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Westmark Credit Union",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "OneSeven Tech",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Kaiser Permanente",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Salt",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Readdy",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Stellus Rx",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Global Partners",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Shakespeare Company LLC",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Jobot",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "J.P. Morgan",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Twenty",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Lundbeck",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Vanguard",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Sierra",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Verisk",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Stord",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Solace",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Revolut",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Sager Electronics",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "LaSalle Network",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "GoodLeap",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Robert Half",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Braums",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Tandym Tech",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Mastercard",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Anduril Industries",
+      "icp_score": 45,
+      "signal_type": "BOTH"
+    },
+    {
+      "company_name": "Citizens",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Medline Industries",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Capital One",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Oracle",
+      "icp_score": 25,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "BC Forward",
+      "icp_score": 18,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "AI text Detector",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "lumi - sleep lock & alarm",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Symbium",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "HireTalent - Staffing & Recruiting Firm",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "LockIn for Chrome",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "D24 Search",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "seo.bike",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "NotIncluded ",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "ReSpark Software, Inc.",
+      "icp_score": 0,
+      "signal_type": "NONE"
+    },
+    {
+      "company_name": "SMITH MICRO SOFTWARE, INC.  (SMSI)",
+      "icp_score": 0,
+      "signal_type": "NONE"
+    },
+    {
+      "company_name": "Alfred Scholar",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "NotiText",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "CineKive",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Bokkiman",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Public Health Solutions",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "RemX",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Beacon Talent",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Mondo",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Atria Health and Research Institute",
+      "icp_score": 18,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "JustVibe",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Second Brain for AI v2",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Miora",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Offer Max",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "LeadSpawn \u2014 Business Leads in Seconds",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "KwizzEase: DeepWork, Flash Cards, Quiz",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Sapphire Software Parent, LLC",
+      "icp_score": 20,
+      "signal_type": "NONE"
+    },
+    {
+      "company_name": "MaxCyte, Inc",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Zaden Technologies, Inc.",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Merchants Bank of Indiana",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "CultureMill Recruiting",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Transunion",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Kforce Technology Staffing",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "American Express",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "a.v.r.i.z ",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Solvemeet",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "New Era Exploration",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "CoverMyCamera",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "eatsTO \u2014 What's the move tonight?",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "ThumblifyAI Agent",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Py Manager",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Picto",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Make Look Scanned",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "VeritasGraph",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "LINKUP",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Wordmancer",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "TradeDesk.now",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Lolo Downloader",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "PureFeed",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Long-term Software Governance",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "ChatNorris",
+      "icp_score": 10,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "HydroJug",
+      "icp_score": 15,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Optomi",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Odesus, Inc.",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    },
+    {
+      "company_name": "Visium Resources, Inc.",
+      "icp_score": 8,
+      "signal_type": "TIMING"
+    }
+  ]
+}

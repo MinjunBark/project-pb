@@ -1,0 +1,613 @@
+[
+  {
+    "company_name": "MaxCyte, Inc",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 2,
+    "job_titles": [
+      "Director, Product Management",
+      "Director, Product Management"
+    ],
+    "most_recent_posting_date": "2026-07-09T13:19:59Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "LevelTen Energy",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Product Manager"
+    ],
+    "most_recent_posting_date": "2026-06-29T16:54:26-04:00",
+    "source": "greenhouse",
+    "ats_matched_slug": "leveltenenergy",
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Zaden Technologies, Inc.",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 2,
+    "job_titles": [
+      "Technical Product Manager",
+      "Technical Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-07T22:11:43Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "PacifiCorp",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Manager, Product Management"
+    ],
+    "most_recent_posting_date": "2026-07-09T08:55:36Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Westmark Credit Union",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-05T01:18:28Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Merchants Bank of Indiana",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 2,
+    "job_titles": [
+      "Product Manager and System Administration",
+      "Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-09T12:46:45Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "OneSeven Tech",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Product Manager  AI Transformation, Multi-Product"
+    ],
+    "most_recent_posting_date": "2026-07-11T12:52:45Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Kaiser Permanente",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Product Manager III"
+    ],
+    "most_recent_posting_date": "2026-07-10T08:33:24Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Salt",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Senior Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-04T12:25:24Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Readdy",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 4,
+    "job_titles": [
+      "Founding Product Manager",
+      "Founding Product Manager",
+      "Founding Product Manager",
+      "Founding Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-04T12:32:46Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "CultureMill Recruiting",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 4,
+    "job_titles": [
+      "AI Product Manager",
+      "AI Product Manager",
+      "AI Product Manager",
+      "AI Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-04T12:09:33Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Stellus Rx",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Product Manager"
+    ],
+    "most_recent_posting_date": "2026-06-26T03:43:25Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Global Partners",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 2,
+    "job_titles": [
+      "Technical Product Manager",
+      "Commercial Technology Product Manager"
+    ],
+    "most_recent_posting_date": "2026-06-30T21:10:36Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Shakespeare Company LLC",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-09T13:02:17Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Jobot",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 3,
+    "job_titles": [
+      "Product Manager",
+      "Product Manager",
+      "Senior Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-01T11:49:39Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "J.P. Morgan",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 10,
+    "job_titles": [
+      "Product Manager",
+      "Product Manager",
+      "Technical Product Manager",
+      "Product Manager - Insurance",
+      "Product Manager - Voice",
+      "Product Operations Manager, Vice President",
+      "Lead Solutions Analyst - Product Operations",
+      "Tokenization Product Operations Senior Associate",
+      "Product Operations Measurement & Insights - Vice President",
+      "Product Portfolio Operations Manager - Operations Product Management"
+    ],
+    "most_recent_posting_date": "2026-07-11T04:33:35Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Twenty",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-06T11:33:26Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Lundbeck",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Regulatory Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-09T05:58:31Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Vanguard",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 2,
+    "job_titles": [
+      "Product Manager, Specialist",
+      "Technical Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-06T11:32:54Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Sierra",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 3,
+    "job_titles": [
+      "Product Manager, Ghostwriter",
+      "Product Manager, Voice",
+      "Product Manager, Infrastructure"
+    ],
+    "most_recent_posting_date": "2026-07-06T11:33:17Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Verisk",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Product Manager - Hybrid"
+    ],
+    "most_recent_posting_date": "2026-07-06T11:33:18Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Stord",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Product Manager - ERP"
+    ],
+    "most_recent_posting_date": "2026-07-06T11:32:53Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Transunion",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Data Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-09T04:47:53Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Solace",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Growth Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-06T11:32:33Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Revolut",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Credit Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-06T11:32:58Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Sager Electronics",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Supplier Marketing & Product Manager, Sensors"
+    ],
+    "most_recent_posting_date": "2026-07-02T20:41:41Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "LaSalle Network",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 2,
+    "job_titles": [
+      "Product Manager/Sr. Product Manager",
+      "Product Manager/Sr. Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-07T14:55:13Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Kforce Technology Staffing",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Product Manager"
+    ],
+    "most_recent_posting_date": "2026-07-01T21:11:04Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "GoodLeap",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 4,
+    "job_titles": [
+      "Principal Product Manager, Fraud and Risk",
+      "Product Operations Specialist, Risk",
+      "Product Operations Specialist, Risk",
+      "Product Operations Specialist, Risk"
+    ],
+    "most_recent_posting_date": "2026-07-11T12:49:44Z",
+    "source": "lever",
+    "ats_matched_slug": "goodleap",
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Braums",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "DAIRY PRODUCT OPERATOR"
+    ],
+    "most_recent_posting_date": "2026-07-11T04:37:39Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Robert Half",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Product Operations Specialist"
+    ],
+    "most_recent_posting_date": "2026-06-18T22:44:31Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Tandym Tech",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Product Operations Manager - Remote"
+    ],
+    "most_recent_posting_date": "2026-06-17T19:05:27Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Mastercard",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Director, Product Operations"
+    ],
+    "most_recent_posting_date": "2026-07-01T22:48:20Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "BC Forward",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Product Operations Specialist (Technical  LLM)"
+    ],
+    "most_recent_posting_date": "2026-07-11T04:38:28Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Medline Industries",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Pharmaceutical Product Operator - 2nd/3rd Shift"
+    ],
+    "most_recent_posting_date": "2026-07-11T04:52:22Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Citizens",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 2,
+    "job_titles": [
+      "Deposit, Product Operations Partner",
+      "Deposit, Product Operations Partner"
+    ],
+    "most_recent_posting_date": "2026-06-13T00:11:08Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Anduril Industries",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 32,
+    "job_titles": [
+      "Design Product Manager",
+      " Early Career Product Operations Rotation Program ",
+      "Mission Operations Product Manager, Group 5 Mission Autonomy",
+      "Mission Operations Product Manager, Group 5 Mission Autonomy",
+      "Product Manager, Deployed Optical Systems",
+      "Product Manager, Semantic Layer",
+      "Product Operations Associate, Tier 1",
+      "Product Operations Engineer, Edge Compute Systems",
+      "Product Operations Manager, Ghost",
+      "Product Operations Manager, Launched Effects",
+      "Product Operations Manager, Mission Success",
+      "Product Operations Technical Specialist, Air Defense",
+      "Product Operations Technical Specialist, Air Defense",
+      "Product Operations Technical Specialist, Bolt, Anvil and PES",
+      "Product Operations Technical Specialist, Counter Intrusion",
+      "Product Operations Technical Specialist, Ghost",
+      "Product Operations Technical Support Engineer, Edge Compute Systems",
+      "Projects to Close (PTC) Associate Product Manager",
+      "Projects to Close (PTC) Associate Product Manager",
+      "Senior Product Manager, Corporate OS",
+      "Senior Product Manager, Corporate OS",
+      "Senior Product Manager, HCM",
+      "Senior Product Manager, Internal Tools",
+      "Senior Product Manager, Internal Tools",
+      "Senior Product Operations Engineer, Space, Classified IT Systems",
+      "Senior Software Product Manager",
+      "Senior Software Product Manager, ArsenalOS",
+      "Senior Software Product Manager, ArsenalOS",
+      "Senior Software Product Manager, Multi-Domain C2 Platform",
+      "Senior Software Product Manager, Surveillance Tower",
+      "Software Product Manager, Air Defense",
+      "Staff Product Manager, Ghost "
+    ],
+    "most_recent_posting_date": "2026-07-10T14:49:40-04:00",
+    "source": "greenhouse",
+    "ats_matched_slug": "andurilindustries",
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Capital One",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 2,
+    "job_titles": [
+      "Associate - Product Operations, Flights Inventory",
+      "Associate - Product Operations, Flights Inventory"
+    ],
+    "most_recent_posting_date": "2026-07-09T22:39:16Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "American Express",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 1,
+    "job_titles": [
+      "Senior Manager-Digital Product Operations"
+    ],
+    "most_recent_posting_date": "2026-07-09T22:36:20Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  },
+  {
+    "company_name": "Oracle",
+    "domain": null,
+    "employee_count": null,
+    "pm_job_post_count": 31,
+    "job_titles": [
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations",
+      "Senior Product Manager, Product Operations"
+    ],
+    "most_recent_posting_date": "2026-06-21T01:16:58Z",
+    "source": "adzuna",
+    "ats_matched_slug": null,
+    "current_tools_mentioned": []
+  }
+]

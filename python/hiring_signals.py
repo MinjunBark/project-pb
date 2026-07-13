@@ -37,6 +37,8 @@ def get_hiring_signals(keywords: list[str] | None = None, lookback_days: int = 6
                     ),
                     "source": ats_result["source"],
                     "ats_matched_slug": ats_result["matched_slug"],
+                    "current_tools_mentioned": ats_result["current_tools_mentioned"],
+                    "buying_intent": ats_result.get("buying_intent"),
                 }
             )
         else:
@@ -50,6 +52,8 @@ def get_hiring_signals(keywords: list[str] | None = None, lookback_days: int = 6
                     "most_recent_posting_date": candidate["most_recent_posting_date"],
                     "source": "adzuna",
                     "ats_matched_slug": None,
+                    "current_tools_mentioned": [],  # Adzuna doesn't give us job description text
+                    "buying_intent": None,  # same reason - no description text to classify
                 }
             )
 

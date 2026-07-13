@@ -32,6 +32,28 @@ FUND_NAME_PATTERN = re.compile(
     r"\b(fund|ventures?\s+(i|ii|iii|iv|v)\b|l\.?p\.?$|spv)\b", re.IGNORECASE
 )
 
+# US-only ICP filter (2026-07-10 - the original blueprint's ICP never specified
+# geography, this is a deliberately added filter). EDGAR's biz_locations for a
+# US company is "City, ST" with a 2-letter state code; foreign private issuers
+# show just a bare country name (e.g. "Israel") - confirmed against real data,
+# see docs/ISSUES.md.
+US_STATE_CODES = {
+    "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID", "IL",
+    "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT",
+    "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI",
+    "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY",
+    "DC", "PR", "VI", "GU", "AS", "MP",
+}
+
+
+def is_us_location(biz_location: str | None) -> bool:
+    """True if an EDGAR biz_location string is a US "City, ST" pair. Foreign
+    private issuers show a bare country name instead, with no state code."""
+    if not biz_location or "," not in biz_location:
+        return False
+    state_code = biz_location.rsplit(",", 1)[-1].strip().upper()
+    return state_code in US_STATE_CODES
+
 # SEC enforces 10 req/sec across all EDGAR endpoints; stay comfortably under it.
 REQUEST_DELAY_SECONDS = 0.15
 
@@ -95,6 +117,10 @@ def search_form_d_filings(
             if not entity_name or _is_fund_entity(entity_name):
                 continue
 
+            biz_location = (source.get("biz_locations") or [None])[0]
+            if not is_us_location(biz_location):
+                continue
+
             seen_ciks.add(cik)
             results.append(
                 {
@@ -103,7 +129,7 @@ def search_form_d_filings(
                     "accession_no": source.get("adsh"),
                     "file_date": source.get("file_date"),
                     "form_type": source.get("form"),
-                    "biz_location": (source.get("biz_locations") or [None])[0],
+                    "biz_location": biz_location,
                 }
             )
 
