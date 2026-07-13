@@ -1,0 +1,144 @@
+company_id,company_name,domain,employee_count,funding_stage,funding_date,funding_amount_usd,industry,biz_location,current_tool_mentioned,is_saas,is_existing_customer,first_seen_at
+3,"Sapphire Software Parent, LLC",sapphireventures.com,250,Pre-seed/Seed,2026-06-15,0,Other Technology,"San Francisco, CA",,True,False,2026-07-11 02:27:38.324452+00:00
+4,"SMITH MICRO SOFTWARE, INC.  (SMSI)",smithmicro.com,,Pre-seed/Seed,2026-06-30,0,Telecommunications,"Pittsburgh, PA",,,False,2026-07-11 02:27:38.917486+00:00
+5,"UserFirst Software, Inc.",leanlaw.co,,Pre-seed/Seed,2026-06-29,650000,Other Technology,"Boise, ID",,,False,2026-07-11 02:27:39.498191+00:00
+6,KHT Software Inc.,khttechnology.com,,Pre-seed/Seed,2026-06-17,25000,Other Technology,"Santa Clara, CA",,,False,2026-07-11 02:27:40.085654+00:00
+7,"eMotive Software, Inc.",emotivesoftware.com,,Seed/Series A,2026-06-26,2543750,Other Technology,"Fort Worth, TX",,,False,2026-07-11 02:27:40.666139+00:00
+8,"Flaunt Software, Inc.",flaunt.ai,,Pre-seed/Seed,2026-06-22,1500000,Other Technology,"Indianapolis, IN",,,False,2026-07-11 02:27:41.249652+00:00
+9,"Board Management Software, Inc.",boardableapp.com,,Seed/Series A,2026-06-23,5446497,Other Technology,"Fischers, IN",,,False,2026-07-11 02:27:41.822801+00:00
+20,"ReSpark Software, Inc.",respark.com,,Pre-seed/Seed,2026-04-24,0,Environmental Services,"Brooklyn, NY",,,False,2026-07-11 02:33:10.830819+00:00
+21,"Kepler Software, Inc.",keplergrp.com,,Series B,2026-05-15,36164297,Other Technology,"San Francisco, CA",,,False,2026-07-11 02:33:11.407369+00:00
+22,Blacksmith Software Inc.,blacksmith.sh,,Series B,2026-05-20,44999913,Other Technology,"San Francisco, CA",,,False,2026-07-11 02:33:11.994577+00:00
+23,Una Software US Corp.,una.ai,,Pre-seed/Seed,2026-05-07,812000,Computers,"Wilmington, DE",,,False,2026-07-11 02:33:12.568465+00:00
+25,Nova AI Software Inc.,novaintelligence.com,,Series B,2026-05-13,38434315,Other Technology,"San Francisco, CA",,,False,2026-07-11 02:33:13.710814+00:00
+26,InfraSight Software Corp,infrasight.software,,Seed/Series A,2026-04-23,2500000,Other Technology,"Huntersville, NC",,,False,2026-07-11 02:33:14.280757+00:00
+28,"Boom Software, Inc.",boomsoftware.com,,Pre-seed/Seed,2026-04-14,700000,Other Technology,"San Francisco, CA",,,False,2026-07-11 02:33:15.416405+00:00
+33,Appraisal Dream LLC,appraisaldream.com,,Series B,2026-04-24,25000000,Other Technology,"Minneapolis, MN",,,False,2026-07-11 02:33:18.313939+00:00
+34,"2ClickFit, Inc.",2clickfit.com,,Pre-seed/Seed,2026-05-27,120824,Other Technology,"Moorestown, NJ",,,False,2026-07-11 02:33:18.931831+00:00
+35,"Platform VCS I, LLC",platformv.com,,Series C+/Growth,2026-06-25,396932385,Pooled Investment Fund,"Kansas City, MO",,,False,2026-07-11 02:33:19.501154+00:00
+36,"Firebird Music Holdings, LLC",firebirdmusic.com,,Series C,2026-06-25,71216686,Other,"West Hollywood, CA",,,False,2026-07-11 02:33:20.062260+00:00
+37,"DF Platform Exchange, LLC",stany.org,,Pre-seed/Seed,2026-04-28,400000,Commercial,"Jeffersonville, IN",,,False,2026-07-11 02:33:20.633128+00:00
+38,"Platform Golf, Ltd.",platformgolf.com,,Seed/Series A,2026-04-23,7500000,Other Technology,"Needham, MA",,,False,2026-07-11 02:33:21.198828+00:00
+39,MPS Platform Services Inc.,mpslimited.com,,Pre-seed/Seed,2026-05-11,650000,Other Technology,"Fort Lauderdale, FL",,,False,2026-07-11 02:33:21.763455+00:00
+40,EQUAL PLATFORM SOLUTIONS INC,website-files.com,,Series B,2026-05-13,28075632,Other Technology,"Boston, MA",,,False,2026-07-11 02:33:22.351194+00:00
+63,"MaxCyte, Inc",maxcyte.com,,,,,,,,,False,2026-07-12 00:14:22.032112+00:00
+64,LevelTen Energy,leveltenenergy.com,,,,,,,,,False,2026-07-12 00:14:22.598329+00:00
+65,"Zaden Technologies, Inc.",zadentech.com,,,,,,,,,False,2026-07-12 00:14:23.162477+00:00
+66,PacifiCorp,pacificorp.com,,,,,,,,,False,2026-07-12 00:14:23.760821+00:00
+67,Westmark Credit Union,westmark.org,,,,,,,,,False,2026-07-12 00:14:24.365638+00:00
+68,Merchants Bank of Indiana,bankmerchants.com,,,,,,,,,False,2026-07-12 00:14:24.950838+00:00
+69,OneSeven Tech,oneseventech.com,,,,,,,,,False,2026-07-12 00:14:25.522598+00:00
+70,Kaiser Permanente,kp.org,,,,,,,,,False,2026-07-12 00:14:26.091481+00:00
+71,Salt,welovesalt.com,,,,,,,,,False,2026-07-12 00:14:26.662797+00:00
+72,Readdy,readdy.ai,,,,,,,,,False,2026-07-12 00:14:27.231597+00:00
+73,CultureMill Recruiting,culturemillrecruiting.com,,,,,,,,,False,2026-07-12 00:14:27.943735+00:00
+74,Stellus Rx,stellusrx.com,,,,,,,,,False,2026-07-12 00:14:28.514478+00:00
+75,Global Partners,globalpartners.com.tr,,,,,,,,,False,2026-07-12 00:14:29.089959+00:00
+76,Shakespeare Company LLC,shakespeareco.com,,,,,,,,,False,2026-07-12 00:14:29.653449+00:00
+77,Jobot,jobot.com,,,,,,,,,False,2026-07-12 00:14:30.221589+00:00
+78,J.P. Morgan,jpmorgan.com,,,,,,,,,False,2026-07-12 00:14:30.843406+00:00
+79,Twenty,twenty.com,,,,,,,,,False,2026-07-12 00:14:31.412989+00:00
+80,Lundbeck,lundbeck.com,,,,,,,,,False,2026-07-12 00:14:32.043815+00:00
+81,Vanguard,vanguard.com,,,,,,,,,False,2026-07-12 00:14:32.612679+00:00
+82,Sierra,sierra.com,,,,,,,,,False,2026-07-12 00:14:33.185488+00:00
+83,Verisk,verisk.com,,,,,,,,,False,2026-07-12 00:14:33.756511+00:00
+84,Stord,stord.com,,,,,,,,,False,2026-07-12 00:14:34.325159+00:00
+85,Transunion,transunion.com,,,,,,,,,False,2026-07-12 00:14:34.911379+00:00
+86,Solace,solace.health,,,,,,,,,False,2026-07-12 00:14:35.488890+00:00
+87,Revolut,revolut.com,,,,,,,,,False,2026-07-12 00:14:36.130346+00:00
+88,Sager Electronics,sager.com,,,,,,,,,False,2026-07-12 00:14:36.730505+00:00
+89,LaSalle Network,thelasallenetwork.com,,,,,,,,,False,2026-07-12 00:14:37.293533+00:00
+90,Kforce Technology Staffing,kforce.com,,,,,,,,,False,2026-07-12 00:14:37.869315+00:00
+91,GoodLeap,goodleap.nl,,,,,,,,,False,2026-07-12 00:14:38.440440+00:00
+92,Robert Half,roberthalf.com,,,,,,,,,False,2026-07-12 00:14:39.015661+00:00
+93,Braums,braums.com.au,,,,,,,,,False,2026-07-12 00:14:39.680955+00:00
+94,Tandym Tech,tandymgroup.com,,,,,,,,,False,2026-07-12 00:14:40.253113+00:00
+95,Mastercard,mastercard.com,,,,,,,,,False,2026-07-12 00:14:40.818440+00:00
+96,Anduril Industries,anduril.com,,,,,,,,,False,2026-07-12 00:14:41.388741+00:00
+97,Citizens,citizensbank.com,,,,,,,,,False,2026-07-12 00:14:42.005565+00:00
+98,Medline Industries,medline.com,,,,,,,,,False,2026-07-12 00:14:42.628137+00:00
+99,Capital One,capitalone.com,,,,,,,,,False,2026-07-12 00:14:43.203336+00:00
+100,American Express,americanexpress.com,,,,,,,,,False,2026-07-12 00:14:43.849359+00:00
+101,Oracle,oracle.com,,,,,,,,,False,2026-07-12 00:14:44.419793+00:00
+157,BC Forward,bcforward.com,,,,,,,,,False,2026-07-12 01:20:23.471943+00:00
+288,AI text Detector,pangram.com,,,,,,,,,False,2026-07-13 01:58:45.077595+00:00
+289,lumi - sleep lock & alarm,google.com,,,,,,,,,False,2026-07-13 01:58:45.670219+00:00
+290,a.v.r.i.z ,avriz.com,,,,,,,,,False,2026-07-13 01:58:46.247864+00:00
+291,Solvemeet,solvemeet.com,,,,,,,,,False,2026-07-13 01:58:46.868657+00:00
+292,New Era Exploration,neweraexploration.com,,,,,,,,,False,2026-07-13 01:58:47.513757+00:00
+293,CoverMyCamera,privacyguides.net,,,,,,,,,False,2026-07-13 01:58:48.106154+00:00
+294,eatsTO — What's the move tonight?,tiktok.com,,,,,,,,,False,2026-07-13 01:58:48.701767+00:00
+295,ThumblifyAI Agent,thumblifyai.com,,,,,,,,,False,2026-07-13 01:58:49.286442+00:00
+296,Py Manager,python.org,,,,,,,,,False,2026-07-13 01:58:49.888213+00:00
+297,Picto,picto.lu,,,,,,,,,False,2026-07-13 01:58:50.600418+00:00
+298,Make Look Scanned,lookscanned.io,,,,,,,,,False,2026-07-13 01:58:51.223509+00:00
+299,VeritasGraph,pypi.org,,,,,,,,,False,2026-07-13 01:58:51.901164+00:00
+300,LINKUP,linkup.com,,,,,,,,,False,2026-07-13 01:58:52.499766+00:00
+301,Wordmancer,wordtech.com,,,,,,,,,False,2026-07-13 01:58:53.150796+00:00
+302,TradeDesk.now,thetradedesk.com,,,,,,,,,False,2026-07-13 01:58:53.726193+00:00
+303,Lolo Downloader,lolo.id,,,,,,,,,False,2026-07-13 01:58:54.296855+00:00
+304,PureFeed,purefeed.com,,,,,,,,,False,2026-07-13 01:58:54.922347+00:00
+305,LockIn for Chrome,,,,,,,,,,False,2026-07-13 01:58:55.531212+00:00
+306,Long-term Software Governance,corporatek.com,,,,,,,,,False,2026-07-13 01:58:56.176748+00:00
+307,ChatNorris,service.gov.uk,,,,,,,,,False,2026-07-13 01:58:56.822325+00:00
+333,HydroJug,thehydrojug.com,,,,,,,,,False,2026-07-13 02:02:23.252922+00:00
+334,Optomi,optomi.com,,,,,,,,,False,2026-07-13 02:02:23.826925+00:00
+335,"Odesus, Inc.",odesus.com,,,,,,,,,False,2026-07-13 02:02:24.378976+00:00
+336,"Visium Resources, Inc.",visiumresources.com,,,,,,,,,False,2026-07-13 02:02:25.049928+00:00
+337,Symbium,symbium.com,,,,,,,,,False,2026-07-13 02:02:25.659191+00:00
+340,HireTalent - Staffing & Recruiting Firm,hiretalent.com,,,,,,,,,False,2026-07-13 02:02:27.407502+00:00
+347,D24 Search,d24search.io,,,,,,,,,False,2026-07-13 02:02:31.602455+00:00
+420,Miller Electric Mfg. LLC,millerwelds.com,,,,,,,,,False,2026-07-13 04:46:22.606344+00:00
+425,Holley Performance,holley.com,,,,,,,,,False,2026-07-13 04:46:25.452890+00:00
+429,Kelly Services,kellyservices.com.mx,,,,,,,,,False,2026-07-13 04:46:28.006431+00:00
+444,Gatherly,gatherly.io,,,,,,,,,False,2026-07-13 04:46:36.651452+00:00
+445,Avintra,avintra.net,,,,,,,,,False,2026-07-13 04:46:37.218515+00:00
+446,Lumio,lumio.com,,,,,,,,,False,2026-07-13 04:46:37.789515+00:00
+447,seo.bike,1digitalagency.com,,,,,,,,,False,2026-07-13 04:46:38.354174+00:00
+448,NotIncluded ,bcorporation.net,,,,,,,,,False,2026-07-13 04:46:38.918282+00:00
+449,Alfred Scholar,alfredscholar.com,,,,,,,,,False,2026-07-13 04:46:39.489221+00:00
+450,NotiText,salesforce.com,,,,,,,,,False,2026-07-13 04:46:40.069128+00:00
+451,CineKive,reddit.com,,,,,,,,,False,2026-07-13 04:46:40.636835+00:00
+452,Bokkiman,pokemon.com,,,,,,,,,False,2026-07-13 04:46:41.214335+00:00
+491,Public Health Solutions,healthsolutions.org,,,,,,,,,False,2026-07-13 05:17:20.311716+00:00
+493,RemX,remx.xyz,,,,,,,,,False,2026-07-13 05:17:21.453332+00:00
+495,Beacon Talent,beacontalent.co.uk,,,,,,,,,False,2026-07-13 05:17:22.605582+00:00
+498,Mondo,mondo.com,,,,,,,,,False,2026-07-13 05:17:24.345814+00:00
+499,Atria Health and Research Institute,atria.org,,,,,,,,,False,2026-07-13 05:17:24.900907+00:00
+525,JustVibe,justvibe.com,,,,,,,,,False,2026-07-13 05:17:40.106213+00:00
+599,ServiceBeard,teahose.com,,,,,,,,,False,2026-07-13 06:16:51.617793+00:00
+600,FetchSandbox,fetchsandbox.com,,,,,,,,,False,2026-07-13 06:16:52.225408+00:00
+601,"KwizzEase: DeepWork, Flash Cards, Quiz",,,,,,,,,,False,2026-07-13 06:16:52.819474+00:00
+603,Second Brain for AI v2,fortelabs.com,,,,,,,,,False,2026-07-13 06:16:53.979144+00:00
+604,Miora,miora.org,,,,,,,,,False,2026-07-13 06:16:54.579268+00:00
+605,Offer Max,offermax.ai,,,,,,,,,False,2026-07-13 06:16:55.161570+00:00
+606,LeadSpawn — Business Leads in Seconds,convergehub.com,,,,,,,,,False,2026-07-13 06:16:55.731456+00:00
+664,SlotPulse,slotpulse.net,,,,,,,,,False,2026-07-13 07:20:04.600168+00:00
+665,Sam / EUTA,thebadassceo.com,,,,,,,,,False,2026-07-13 07:20:05.174748+00:00
+666,BTCC Referral Code Unlock Exclusive ,audible.com,,,,,,,,,False,2026-07-13 07:20:05.774774+00:00
+667,OnDevice OCR Pro,ondeviceocr.com,,,,,,,,,False,2026-07-13 07:20:06.356650+00:00
+668,JoinCalc,joincalc.com,,,,,,,,,False,2026-07-13 07:20:06.937317+00:00
+669,RailMood,railmood.com,,,,,,,,,False,2026-07-13 07:20:07.511388+00:00
+670,Green the Chain ,greenthechain.com,,,,,,,,,False,2026-07-13 07:20:08.108980+00:00
+671,Sayonara Beauty Clinic & Acadamy,sayonarabeautyclinic.com,,,,,,,,,False,2026-07-13 07:20:08.765064+00:00
+672,[MAC] Claude Notch Usage Companion,,,,,,,,,,False,2026-07-13 07:20:09.320135+00:00
+673,Two Paths,twopathsllc.org,,,,,,,,,False,2026-07-13 07:20:09.899830+00:00
+674,LogBone — AI Fitness Coach & PR Tracker,apple.com,,,,,,,,,False,2026-07-13 07:20:10.471386+00:00
+675,Sleep Science DB,mysleepscience.com,,,,,,,,,False,2026-07-13 07:20:11.042019+00:00
+676,Elusive,elusive.services,,,,,,,,,False,2026-07-13 07:20:11.596679+00:00
+677,Free Download: Premium Website Template,webflow.com,,,,,,,,,False,2026-07-13 07:20:12.160555+00:00
+678,Nutrition Mate,thenutritionmate.com,,,,,,,,,False,2026-07-13 07:20:12.732948+00:00
+679,BTC War,coinmarketcap.com,,,,,,,,,False,2026-07-13 07:20:13.295407+00:00
+680,inference.vip,inference.ai,,,,,,,,,False,2026-07-13 07:20:13.859663+00:00
+681,NexoClicker,nexoclicker.com,,,,,,,,,False,2026-07-13 07:20:14.421533+00:00
+682,Destiny Manage,destinyitemmanager.com,,,,,,,,,False,2026-07-13 07:20:14.986378+00:00
+683,Impri,impri.com.br,,,,,,,,,False,2026-07-13 07:20:15.555045+00:00
+741,Gitwork,,,,,,,,,,False,2026-07-13 08:00:12.220591+00:00
+742,DreamTuber,,,,,,,,,,False,2026-07-13 08:00:12.788370+00:00
+743,Facy,,,,,,,,,,False,2026-07-13 08:00:13.359394+00:00
+744,Mindlify,,,,,,,,,,False,2026-07-13 08:00:13.923349+00:00
+745,"Connect Marketplace - Book Talent, Grow",,,,,,,,,,False,2026-07-13 08:00:14.509262+00:00
+746,CONTINUUM 2026,,,,,,,,,,False,2026-07-13 08:00:15.101706+00:00
+747,Mappio ,,,,,,,,,,False,2026-07-13 08:00:15.679387+00:00
+748,SlipGuard — Public Preview,,,,,,,,,,False,2026-07-13 08:00:16.246379+00:00
+749,Loreform,,,,,,,,,,False,2026-07-13 08:00:16.822136+00:00

@@ -58,20 +58,6 @@
     "buying_intent": null
   },
   {
-    "company_name": "Optomi",
-    "domain": null,
-    "employee_count": null,
-    "pm_job_post_count": 1,
-    "job_titles": [
-      "Senior Product Manager"
-    ],
-    "most_recent_posting_date": "2026-07-12T02:03:29Z",
-    "source": "adzuna",
-    "ats_matched_slug": null,
-    "current_tools_mentioned": [],
-    "buying_intent": null
-  },
-  {
     "company_name": "Odesus, Inc.",
     "domain": null,
     "employee_count": null,
@@ -138,37 +124,6 @@
     "buying_intent": null
   },
   {
-    "company_name": "CultureMill Recruiting",
-    "domain": null,
-    "employee_count": null,
-    "pm_job_post_count": 4,
-    "job_titles": [
-      "AI Product Manager",
-      "AI Product Manager",
-      "AI Product Manager",
-      "AI Product Manager"
-    ],
-    "most_recent_posting_date": "2026-07-04T12:09:33Z",
-    "source": "adzuna",
-    "ats_matched_slug": null,
-    "current_tools_mentioned": [],
-    "buying_intent": null
-  },
-  {
-    "company_name": "HireTalent - Staffing & Recruiting Firm",
-    "domain": null,
-    "employee_count": null,
-    "pm_job_post_count": 1,
-    "job_titles": [
-      "Consumer Product Manager"
-    ],
-    "most_recent_posting_date": "2026-07-12T02:33:32Z",
-    "source": "adzuna",
-    "ats_matched_slug": null,
-    "current_tools_mentioned": [],
-    "buying_intent": null
-  },
-  {
     "company_name": "LevelTen Energy",
     "domain": null,
     "employee_count": null,
@@ -200,22 +155,6 @@
     "buying_intent": null
   },
   {
-    "company_name": "Jobot",
-    "domain": null,
-    "employee_count": null,
-    "pm_job_post_count": 3,
-    "job_titles": [
-      "Product Manager",
-      "Product Manager",
-      "Product Manager"
-    ],
-    "most_recent_posting_date": "2026-07-01T11:50:34Z",
-    "source": "adzuna",
-    "ats_matched_slug": null,
-    "current_tools_mentioned": [],
-    "buying_intent": null
-  },
-  {
     "company_name": "J.P. Morgan",
     "domain": null,
     "employee_count": null,
@@ -230,22 +169,6 @@
       "Product Portfolio Operations Manager - Operations Product Management"
     ],
     "most_recent_posting_date": "2026-07-11T04:33:35Z",
-    "source": "adzuna",
-    "ats_matched_slug": null,
-    "current_tools_mentioned": [],
-    "buying_intent": null
-  },
-  {
-    "company_name": "Robert Half",
-    "domain": null,
-    "employee_count": null,
-    "pm_job_post_count": 3,
-    "job_titles": [
-      "Product Manager",
-      "Product Manager",
-      "Product Operations Specialist"
-    ],
-    "most_recent_posting_date": "2026-07-05T06:11:20Z",
     "source": "adzuna",
     "ats_matched_slug": null,
     "current_tools_mentioned": [],
@@ -280,57 +203,6 @@
     "buying_intent": null
   },
   {
-    "company_name": "RemX",
-    "domain": null,
-    "employee_count": null,
-    "pm_job_post_count": 1,
-    "job_titles": [
-      "Product Manager"
-    ],
-    "most_recent_posting_date": "2026-07-08T01:46:36Z",
-    "source": "adzuna",
-    "ats_matched_slug": null,
-    "current_tools_mentioned": [],
-    "buying_intent": null
-  },
-  {
-    "company_name": "D24 Search",
-    "domain": null,
-    "employee_count": null,
-    "pm_job_post_count": 10,
-    "job_titles": [
-      "Staff Product Manager - AI Experience",
-      "Staff Product Manager - AI Experience",
-      "Staff Product Manager - AI Experience",
-      "Staff Product Manager - AI Experience",
-      "Staff Product Manager - AI Experience",
-      "Staff Product Manager - AI Experience",
-      "Staff Product Manager - AI Experience",
-      "Staff Product Manager - AI Experience",
-      "Staff Product Manager - AI Experience",
-      "Staff Product Manager - AI Experience"
-    ],
-    "most_recent_posting_date": "2026-07-12T02:30:11Z",
-    "source": "adzuna",
-    "ats_matched_slug": null,
-    "current_tools_mentioned": [],
-    "buying_intent": null
-  },
-  {
-    "company_name": "Beacon Talent",
-    "domain": null,
-    "employee_count": null,
-    "pm_job_post_count": 1,
-    "job_titles": [
-      "Senior Product Manager, Life Sciences Data Products"
-    ],
-    "most_recent_posting_date": "2026-07-09T00:27:38Z",
-    "source": "adzuna",
-    "ats_matched_slug": null,
-    "current_tools_mentioned": [],
-    "buying_intent": null
-  },
-  {
     "company_name": "Sager Electronics",
     "domain": null,
     "employee_count": null,
@@ -359,20 +231,6 @@
     "buying_intent": null
   },
   {
-    "company_name": "Mondo",
-    "domain": null,
-    "employee_count": null,
-    "pm_job_post_count": 1,
-    "job_titles": [
-      "Product Operations Manager"
-    ],
-    "most_recent_posting_date": "2026-07-13T00:35:22Z",
-    "source": "adzuna",
-    "ats_matched_slug": null,
-    "current_tools_mentioned": [],
-    "buying_intent": null
-  },
-  {
     "company_name": "Atria Health and Research Institute",
     "domain": null,
     "employee_count": null,
@@ -381,20 +239,6 @@
       "Product Operations Associate - Los Angeles"
     ],
     "most_recent_posting_date": "2026-07-13T00:37:56Z",
-    "source": "adzuna",
-    "ats_matched_slug": null,
-    "current_tools_mentioned": [],
-    "buying_intent": null
-  },
-  {
-    "company_name": "Tandym Tech",
-    "domain": null,
-    "employee_count": null,
-    "pm_job_post_count": 1,
-    "job_titles": [
-      "Product Operations Manager - Remote"
-    ],
-    "most_recent_posting_date": "2026-06-17T19:05:27Z",
     "source": "adzuna",
     "ats_matched_slug": null,
     "current_tools_mentioned": [],
@@ -478,20 +322,6 @@
     }
   },
   {
-    "company_name": "Medline Industries",
-    "domain": null,
-    "employee_count": null,
-    "pm_job_post_count": 1,
-    "job_titles": [
-      "Pharmaceutical Product Operator - 2nd/3rd Shift"
-    ],
-    "most_recent_posting_date": "2026-07-12T04:55:37Z",
-    "source": "adzuna",
-    "ats_matched_slug": null,
-    "current_tools_mentioned": [],
-    "buying_intent": null
-  },
-  {
     "company_name": "Citizens",
     "domain": null,
     "employee_count": null,
@@ -501,20 +331,6 @@
       "Deposit, Product Operations Partner"
     ],
     "most_recent_posting_date": "2026-06-13T00:11:08Z",
-    "source": "adzuna",
-    "ats_matched_slug": null,
-    "current_tools_mentioned": [],
-    "buying_intent": null
-  },
-  {
-    "company_name": "Kelly Services",
-    "domain": null,
-    "employee_count": null,
-    "pm_job_post_count": 1,
-    "job_titles": [
-      "Packaging Product Transfer Operator"
-    ],
-    "most_recent_posting_date": "2026-07-09T17:52:01Z",
     "source": "adzuna",
     "ats_matched_slug": null,
     "current_tools_mentioned": [],
@@ -553,8 +369,9 @@
     "company_name": "Oracle",
     "domain": null,
     "employee_count": null,
-    "pm_job_post_count": 24,
+    "pm_job_post_count": 25,
     "job_titles": [
+      "Senior Product Manager, Product Operations",
       "Senior Product Manager, Product Operations",
       "Senior Product Manager, Product Operations",
       "Senior Product Manager, Product Operations",

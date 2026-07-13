@@ -1,28 +1,30 @@
 """Redesign v2, Tier 6: a real Discord bot that watches #clay-enrichment
 for the user's enriched CSV upload directly - the faster, more natural
-counterpart to Tier 5's local-folder + 60s poller (utils/discord.py's
+counterpart to Tier 5's local-folder + 60s poller (utils/discord_webhooks.py's
 send_clay_enrichment_request() posts the request out via a webhook; this
 file is what reads the reply back in, which a webhook can't do at all).
 
 Explicitly additive: the local-folder convention (python/enrichment.py's
-CLAY_INCOMING_DOMAIN_DIR/CLAY_INCOMING_DEMOGRAPHICS_DIR + the 60s poller in
-api/main.py) still works exactly as before and is untouched - this bot is
-just a second, faster way for a real upload to land in the same known
-folders. If DISCORD_BOT_TOKEN/DISCORD_CLAY_CHANNEL_ID aren't configured,
-create_bot_task() returns None and the rest of the pipeline is completely
-unaffected (the bot is an enhancement, not a requirement).
+CLAY_INCOMING_ENRICHMENT_DIR + the 60s poller in api/main.py) still works
+exactly as before and is untouched - this bot is just a second, faster way
+for a real upload to land in the same known folder. If
+DISCORD_BOT_TOKEN/DISCORD_CLAY_CHANNEL_ID aren't configured, create_bot_task()
+returns None and the rest of the pipeline is completely unaffected (the bot
+is an enhancement, not a requirement).
 
-All real decision logic (which enrichment queue a file belongs to, where
-it gets written, whether to trigger an immediate resume) lives in
-handle_upload() below - a plain async function with no discord.py types in
-its signature, so it's testable without mocking discord.Client/Message.
-The on_message wiring at the bottom is a thin, untested-by-design
-adapter, mirroring how api/main.py's HTTP endpoints stay thin wrappers
-around already-tested Python.
+Simplified 2026-07-13: since python/enrichment.py's domain/demographics
+queues were consolidated into one, this module no longer needs to detect
+"which queue does this file belong to" - every real CSV uploaded to
+#clay-enrichment is presumed to be a Company Enrichment export.
+
+All real decision logic (saving the file, whether to trigger an immediate
+resume) lives in handle_upload() below - a plain async function with no
+discord.py types in its signature, so it's testable without mocking
+discord.Client/Message. The on_message wiring at the bottom is a thin,
+untested-by-design adapter, mirroring how api/main.py's HTTP endpoints stay
+thin wrappers around already-tested Python.
 """
 import asyncio
-import csv
-import io
 import os
 import sys
 from pathlib import Path
@@ -35,25 +37,15 @@ import enrichment  # noqa: E402
 import full_pipeline_run  # noqa: E402
 
 
-async def handle_upload(header: list[str], filename: str, content: bytes, reply_fn) -> None:
+async def handle_upload(filename: str, content: bytes, reply_fn) -> None:
     """The real logic behind a real CSV attachment landing in
-    #clay-enrichment: detect which known-folder queue it belongs to (by
-    real header content, not filename - see enrichment._detect_enrichment_kind()),
-    save it there, and immediately trigger an auto-resume check instead of
-    waiting up to 60s for the next poll tick. `reply_fn` is an async
-    callable(str) -> None (in practice, a Discord channel's .send) - kept
-    generic here so this function needs no discord.py types to test."""
-    kind = enrichment._detect_enrichment_kind(header)
-    if kind is None:
-        await reply_fn(
-            "⚠️ That CSV wasn't recognized as either a domain- or demographics-enriched "
-            "export - nothing was imported. Make sure you're uploading the real exported "
-            "result from the Clay table linked in the original request, not a different file."
-        )
-        return
-
-    enrichment.save_incoming_enrichment_file(kind, filename, content)
-    await reply_fn(f"✅ Got it — {kind} enrichment file received, importing now...")
+    #clay-enrichment: save it into the known folder, and immediately trigger
+    an auto-resume check instead of waiting up to 60s for the next poll
+    tick. `reply_fn` is an async callable(str) -> None (in practice, a
+    Discord channel's .send) - kept generic here so this function needs no
+    discord.py types to test."""
+    enrichment.save_incoming_enrichment_file(filename, content)
+    await reply_fn("✅ Got it — enrichment file received, importing now...")
 
     result = await asyncio.to_thread(full_pipeline_run.resume_after_enrichment)
     if result is None:
@@ -66,11 +58,6 @@ async def handle_upload(header: list[str], filename: str, content: bytes, reply_
             f"🔄 Pipeline auto-resumed: {result['qualified_count']} qualified lead(s) out of "
             f"{result['companies_evaluated']} companies evaluated. Full digest posted in #sdr-digest."
         )
-
-
-def _read_header(content: bytes) -> list[str]:
-    text = content.decode("utf-8", errors="replace")
-    return next(csv.reader(io.StringIO(text)), [])
 
 
 def create_bot_task() -> "asyncio.Task | None":
@@ -98,7 +85,6 @@ def create_bot_task() -> "asyncio.Task | None":
             if not attachment.filename.lower().endswith(".csv"):
                 continue
             content = await attachment.read()
-            header = _read_header(content)
-            await handle_upload(header, attachment.filename, content, message.channel.send)
+            await handle_upload(attachment.filename, content, message.channel.send)
 
     return asyncio.create_task(client.start(token))

@@ -200,21 +200,25 @@ def score_intent(company: dict, signals: list[dict], competitor_intel: dict[str,
 
 
 def score_demographic(company: dict) -> dict:
-    """DEMOGRAPHIC bucket, max 25 pts (blueprint's 30 minus the
-    unimplementable "no existing Product Ops role" +5 - see module docstring).
-    Not wired into live scoring yet - employee_count/is_saas are NULL for
-    every real company until Phase 7's Clay enrichment."""
+    """DEMOGRAPHIC bucket, max 10 pts.
+
+    Recalibrated 2026-07-13: the original blueprint's employee-count band
+    bonus (50-200/200-500 employees) was built against the ORIGINAL
+    project blueprint's assumed ICP (50-500 employees, Series A-C) - the
+    real, researched ICP (redesign/01-trigger-prompt-filled-productboard.md,
+    a real GTM engineer's trigger-prompt research, not the stale original
+    blueprint) shows real named Productboard customers (Autodesk, Salesforce,
+    Zoom, Ubisoft, Medtronic, OutSystems) span roughly 1,800 to 95,000
+    employees - too wide a real range for company size to be a meaningful
+    positive differentiator, so the band bonus was removed entirely rather
+    than guessed at with new arbitrary numbers.
+
+    The is_saas bonus is kept (a software/SaaS company may still be a
+    somewhat faster/easier sale even though real customers aren't
+    exclusively SaaS - Ubisoft/Medtronic prove non-SaaS isn't disqualifying,
+    but that's a different claim than "SaaS status carries zero signal")."""
     points = 0
     detail = {}
-
-    employee_count = company.get("employee_count")
-    if employee_count is not None:
-        if 50 <= employee_count <= 200:
-            points += 15
-            detail["employee_count_band"] = 15
-        elif 200 < employee_count <= 500:
-            points += 10
-            detail["employee_count_band"] = 10
 
     if company.get("is_saas") is True:
         points += 10
@@ -224,6 +228,16 @@ def score_demographic(company: dict) -> dict:
 
 
 def score_deductions(company: dict) -> dict:
+    """Recalibrated 2026-07-13 (see score_demographic()'s docstring for the
+    full real-evidence citation): removed the employee_count > 1000
+    deduction and the is_saas is False deduction entirely - every one of
+    Productboard's real named customers (1,800-95,000 employees; several
+    non-SaaS industries like gaming and medical devices) would have been
+    penalized by the old thresholds, which were never actually validated
+    against real Productboard data - they came from the original project
+    blueprint's own assumed ICP, not from research. The <20 lower bound is
+    kept - a company that small is still genuinely unlikely to be a
+    plausible near-term enterprise PM-tooling buyer regardless of segment."""
     points = 0
     detail = {}
 
@@ -232,13 +246,9 @@ def score_deductions(company: dict) -> dict:
         detail["existing_customer"] = -100
 
     employee_count = company.get("employee_count")
-    if employee_count is not None and (employee_count < 20 or employee_count > 1000):
+    if employee_count is not None and employee_count < 20:
         points -= 20
         detail["company_size_out_of_range"] = -20
-
-    if company.get("is_saas") is False:
-        points -= 15
-        detail["non_saas"] = -15
 
     return {"points": points, "detail": detail}
 

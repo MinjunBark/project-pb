@@ -2,7 +2,14 @@
 orchestrator. Every external call (branches, merge, leadership, scoring,
 Discord) is mocked; this file only checks that the orchestrator sequences
 and wires them together correctly, mirroring test_pipeline.py's own
-"sequencing, not individual logic" scope."""
+"sequencing, not individual logic" scope.
+
+Progress reporting migrated (2026-07-13) from one-new-message-per-phase
+(send_progress_update) to a single live-editing progress bar
+(send_progress_bar_update(current_step, total_steps, label, message_id)) -
+tests now extract the `label` argument (3rd positional) from that mock's
+call list instead of reading send_progress_update's plain message text.
+"""
 import sys
 from pathlib import Path
 from unittest.mock import MagicMock
@@ -44,6 +51,21 @@ MERGE_RESULT = {
 }
 
 
+def _progress_labels(mock_send_progress_bar_update) -> list[str]:
+    """Extracts the human-readable label text from every
+    send_progress_bar_update(current_step, total_steps, label, message_id)
+    call - the same real text a person would see live in Discord, just
+    accessed via the new call signature."""
+    return [call.args[2] for call in mock_send_progress_bar_update.call_args_list]
+
+
+def _progress_message_ids(mock_send_progress_bar_update) -> list[str | None]:
+    """Extracts the message_id each call was made with (positional or
+    keyword - ProgressTracker.__init__'s first call omits it, relying on
+    the real function's default)."""
+    return [call.args[3] if len(call.args) > 3 else call.kwargs.get("message_id") for call in mock_send_progress_bar_update.call_args_list]
+
+
 def _mock_common(monkeypatch, companies=None, process_results=None):
     monkeypatch.setattr(full_pipeline_run.funding_edgar, "get_funding_signals", MagicMock(return_value=[{"company_name": "Acme"}]))
     monkeypatch.setattr(full_pipeline_run.hiring_signals, "get_hiring_signals", MagicMock(return_value=[{"company_name": "Beta"}]))
@@ -61,23 +83,14 @@ def _mock_common(monkeypatch, companies=None, process_results=None):
     monkeypatch.setattr(
         full_pipeline_run.pipeline, "process_qualified_lead", MagicMock(side_effect=process_results or [])
     )
-    monkeypatch.setattr(full_pipeline_run.discord, "send_progress_update", MagicMock())
+    monkeypatch.setattr(full_pipeline_run.discord, "send_progress_bar_update", MagicMock(return_value="msg-1"))
     monkeypatch.setattr(full_pipeline_run.discord, "send_sdr_digest", MagicMock())
     monkeypatch.setattr(full_pipeline_run.discord, "send_clay_enrichment_request", MagicMock())
 
-    monkeypatch.setattr(full_pipeline_run.enrichment, "process_incoming_domain_enrichment", MagicMock(return_value=[]))
+    monkeypatch.setattr(full_pipeline_run.enrichment, "process_incoming_enrichment", MagicMock(return_value=[]))
+    monkeypatch.setattr(full_pipeline_run.enrichment, "get_companies_needing_enrichment", MagicMock(return_value=[]))
     monkeypatch.setattr(
-        full_pipeline_run.enrichment, "process_incoming_demographic_enrichment", MagicMock(return_value=[])
-    )
-    monkeypatch.setattr(full_pipeline_run.enrichment, "get_companies_needing_domain", MagicMock(return_value=[]))
-    monkeypatch.setattr(full_pipeline_run.enrichment, "get_companies_needing_demographics", MagicMock(return_value=[]))
-    monkeypatch.setattr(
-        full_pipeline_run.enrichment, "export_companies_needing_domain", MagicMock(return_value="data/clay/x.csv")
-    )
-    monkeypatch.setattr(
-        full_pipeline_run.enrichment,
-        "export_companies_needing_demographics",
-        MagicMock(return_value="data/clay/y.csv"),
+        full_pipeline_run.enrichment, "export_companies_needing_enrichment", MagicMock(return_value="data/clay/x.csv")
     )
 
     return mock_conn
@@ -143,8 +156,8 @@ def test_run_full_cycle_skips_branch_c_when_no_tracked_competitors_mentioned(mon
     full_pipeline_run.run_full_cycle(include_branch_c=True)
 
     full_pipeline_run.intent_g2.get_intent_signals.assert_not_called()
-    messages = [call.args[0] for call in full_pipeline_run.discord.send_progress_update.call_args_list]
-    assert any("Branch C included but skipped" in m for m in messages)
+    labels = _progress_labels(full_pipeline_run.discord.send_progress_bar_update)
+    assert any("Branch C included but skipped" in m for m in labels)
 
 
 def test_run_full_cycle_explicit_branch_c_competitors_overrides_derived_set(monkeypatch):
@@ -168,17 +181,43 @@ def test_run_full_cycle_posts_progress_after_each_phase(monkeypatch):
 
     full_pipeline_run.run_full_cycle()
 
-    messages = [call.args[0] for call in full_pipeline_run.discord.send_progress_update.call_args_list]
-    joined = " | ".join(messages)
+    labels = _progress_labels(full_pipeline_run.discord.send_progress_bar_update)
+    joined = " | ".join(labels)
     assert "Starting full pipeline run" in joined
     assert "Branch A" in joined
     assert "Branch B" in joined
     assert "Branch D" in joined
     assert "Branch C skipped" in joined
-    assert "Merge complete" in joined
+    assert "Supabase updated" in joined
     assert "Leadership check" in joined
     assert "Scoring + outreach complete" in joined
-    assert "complete" in messages[-1].lower()
+    assert "complete" in labels[-1].lower()
+
+
+def test_run_full_cycle_uses_one_live_editing_message_not_a_message_per_phase(monkeypatch):
+    """The whole point of the progress-bar redesign: every update after the
+    first must edit the SAME message id (message_id passed on every call
+    after the initial one), not create a new message each phase."""
+    _mock_common(monkeypatch, companies=[COMPANY_NO_DOMAIN], process_results=[NOT_QUALIFIED_RESULT])
+
+    full_pipeline_run.run_full_cycle()
+
+    message_ids = _progress_message_ids(full_pipeline_run.discord.send_progress_bar_update)
+    assert message_ids[0] is None  # first call creates the message (no id yet)
+    assert all(mid == "msg-1" for mid in message_ids[1:])  # every later call edits that same message
+
+
+def test_run_full_cycle_progress_bar_reaches_full_completion(monkeypatch):
+    """The tracker's declared FULL_RUN_TOTAL_STEPS must match the real
+    number of advance() calls a full run makes, so the bar always reaches
+    a clean 100% rather than stalling short or overshooting."""
+    _mock_common(monkeypatch, companies=[COMPANY_NO_DOMAIN], process_results=[NOT_QUALIFIED_RESULT])
+
+    full_pipeline_run.run_full_cycle()
+
+    calls = full_pipeline_run.discord.send_progress_bar_update.call_args_list
+    final_current_step, final_total_steps = calls[-1].args[0], calls[-1].args[1]
+    assert final_current_step == final_total_steps == full_pipeline_run.FULL_RUN_TOTAL_STEPS
 
 
 def test_run_full_cycle_captures_full_processed_results_not_just_counts(monkeypatch):
@@ -221,16 +260,30 @@ def test_run_full_cycle_closes_db_connection(monkeypatch):
 
 
 def test_run_full_cycle_posts_failure_and_reraises_on_branch_error(monkeypatch):
+    _mock_common(monkeypatch, companies=[COMPANY_NO_DOMAIN], process_results=[NOT_QUALIFIED_RESULT])
     monkeypatch.setattr(
         full_pipeline_run.funding_edgar, "get_funding_signals", MagicMock(side_effect=RuntimeError("EDGAR is down"))
     )
-    monkeypatch.setattr(full_pipeline_run.discord, "send_progress_update", MagicMock())
 
     with pytest.raises(RuntimeError, match="EDGAR is down"):
         full_pipeline_run.run_full_cycle()
 
-    messages = [call.args[0] for call in full_pipeline_run.discord.send_progress_update.call_args_list]
-    assert any("❌" in m and "Branch A" in m for m in messages)
+    labels = _progress_labels(full_pipeline_run.discord.send_progress_bar_update)
+    assert any("❌" in m and "Branch A" in m for m in labels)
+
+
+def test_run_full_cycle_failure_edits_the_same_tracked_message_not_a_new_one(monkeypatch):
+    _mock_common(monkeypatch, companies=[COMPANY_NO_DOMAIN], process_results=[NOT_QUALIFIED_RESULT])
+    monkeypatch.setattr(
+        full_pipeline_run.funding_edgar, "get_funding_signals", MagicMock(side_effect=RuntimeError("EDGAR is down"))
+    )
+
+    with pytest.raises(RuntimeError, match="EDGAR is down"):
+        full_pipeline_run.run_full_cycle()
+
+    message_ids = _progress_message_ids(full_pipeline_run.discord.send_progress_bar_update)
+    assert message_ids[0] is None  # the initial "Starting..." message creation
+    assert message_ids[-1] == "msg-1"  # the failure edit reuses that same message id
 
 
 def test_run_full_cycle_closes_connection_even_when_a_later_phase_fails(monkeypatch):
@@ -332,7 +385,8 @@ def test_run_full_cycle_lands_a_run_query_log(monkeypatch):
 
 
 # ---------------------------------------------------------------------------
-# Redesign v2, Tier 5: Clay human-in-the-loop pickup/request + auto-resume
+# Redesign v2, Tier 5/6: Clay human-in-the-loop pickup/request + auto-resume
+# (single consolidated queue as of 2026-07-13)
 # ---------------------------------------------------------------------------
 
 
@@ -340,41 +394,39 @@ def test_run_full_cycle_picks_up_clay_enrichment_before_scoring(monkeypatch):
     """Pickup must run before the scoring phase so anything dropped back
     since the last run benefits THIS run's scoring, not the next one."""
     mock_conn = _mock_common(monkeypatch, companies=[COMPANY_NO_DOMAIN], process_results=[NOT_QUALIFIED_RESULT])
-    monkeypatch.setattr(
-        full_pipeline_run.enrichment, "process_incoming_domain_enrichment", MagicMock(return_value=[1, 2])
-    )
+    monkeypatch.setattr(full_pipeline_run.enrichment, "process_incoming_enrichment", MagicMock(return_value=[1, 2]))
 
     full_pipeline_run.run_full_cycle()
 
-    full_pipeline_run.enrichment.process_incoming_domain_enrichment.assert_called_once_with(mock_conn)
-    full_pipeline_run.enrichment.process_incoming_demographic_enrichment.assert_called_once_with(mock_conn)
-    messages = [call.args[0] for call in full_pipeline_run.discord.send_progress_update.call_args_list]
-    assert any("Clay enrichment picked up: 2 companies" in m for m in messages)
+    full_pipeline_run.enrichment.process_incoming_enrichment.assert_called_once_with(mock_conn)
+    labels = _progress_labels(full_pipeline_run.discord.send_progress_bar_update)
+    assert any("Clay enrichment picked up: 2 companies" in m for m in labels)
 
 
-def test_run_full_cycle_does_not_announce_pickup_when_nothing_was_picked_up(monkeypatch):
+def test_run_full_cycle_announces_nothing_picked_up_honestly(monkeypatch):
     _mock_common(monkeypatch, companies=[COMPANY_NO_DOMAIN], process_results=[NOT_QUALIFIED_RESULT])
 
     full_pipeline_run.run_full_cycle()
 
-    messages = [call.args[0] for call in full_pipeline_run.discord.send_progress_update.call_args_list]
-    assert not any("Clay enrichment picked up" in m for m in messages)
+    labels = _progress_labels(full_pipeline_run.discord.send_progress_bar_update)
+    assert not any("Clay enrichment picked up" in m for m in labels)
+    assert any("nothing new to import" in m for m in labels)
 
 
-def test_run_full_cycle_requests_clay_enrichment_for_non_empty_queues(monkeypatch):
+def test_run_full_cycle_requests_clay_enrichment_for_a_non_empty_queue(monkeypatch):
     _mock_common(monkeypatch, companies=[COMPANY_NO_DOMAIN], process_results=[NOT_QUALIFIED_RESULT])
     monkeypatch.setattr(
         full_pipeline_run.enrichment,
-        "get_companies_needing_domain",
+        "get_companies_needing_enrichment",
         MagicMock(return_value=[{"company_id": 1, "company_name": "Acme"}]),
     )
 
     full_pipeline_run.run_full_cycle()
 
-    full_pipeline_run.discord.send_clay_enrichment_request.assert_called_once_with("domain", 1, "data/clay/x.csv")
+    full_pipeline_run.discord.send_clay_enrichment_request.assert_called_once_with(1, "data/clay/x.csv")
 
 
-def test_run_full_cycle_skips_clay_request_for_empty_queues(monkeypatch):
+def test_run_full_cycle_skips_clay_request_for_an_empty_queue(monkeypatch):
     _mock_common(monkeypatch, companies=[COMPANY_NO_DOMAIN], process_results=[NOT_QUALIFIED_RESULT])
 
     full_pipeline_run.run_full_cycle()
@@ -382,40 +434,33 @@ def test_run_full_cycle_skips_clay_request_for_empty_queues(monkeypatch):
     full_pipeline_run.discord.send_clay_enrichment_request.assert_not_called()
 
 
-def test_run_full_cycle_excludes_demographics_request_when_opted_out(monkeypatch):
-    """The new include_demographics_enrichment=False toggle - domain
-    requests still fire normally, but demographics is skipped entirely,
-    even though its queue is non-empty, and the skip is logged (not
-    silent) - mirrors how a Branch C skip is already logged."""
+def test_run_full_cycle_excludes_enrichment_request_when_opted_out(monkeypatch):
+    """The include_enrichment_request=False toggle - the request is skipped
+    entirely even though the queue is non-empty, and the skip is logged
+    (not silent) - mirrors how a Branch C skip is already logged."""
     _mock_common(monkeypatch, companies=[COMPANY_NO_DOMAIN], process_results=[NOT_QUALIFIED_RESULT])
     monkeypatch.setattr(
         full_pipeline_run.enrichment,
-        "get_companies_needing_domain",
+        "get_companies_needing_enrichment",
         MagicMock(return_value=[{"company_id": 1, "company_name": "Acme"}]),
     )
-    monkeypatch.setattr(
-        full_pipeline_run.enrichment,
-        "get_companies_needing_demographics",
-        MagicMock(return_value=[{"company_id": 1, "company_name": "Acme", "domain": "acme.com"}]),
-    )
 
-    full_pipeline_run.run_full_cycle(include_demographics_enrichment=False)
+    full_pipeline_run.run_full_cycle(include_enrichment_request=False)
 
-    full_pipeline_run.discord.send_clay_enrichment_request.assert_called_once_with("domain", 1, "data/clay/x.csv")
-    messages = [call.args[0] for call in full_pipeline_run.discord.send_progress_update.call_args_list]
-    assert any("demographics enrichment request skipped" in m for m in messages)
+    full_pipeline_run.discord.send_clay_enrichment_request.assert_not_called()
+    labels = _progress_labels(full_pipeline_run.discord.send_progress_bar_update)
+    assert any("Clay enrichment request skipped" in m for m in labels)
 
 
-def test_run_full_cycle_still_picks_up_demographics_when_opted_out_of_requesting(monkeypatch):
-    """Excluding the demographics REQUEST must not disable demographics
-    PICKUP - anything the user already dropped back should still be
-    imported and benefit this run's scoring, regardless of whether a new
-    request goes out this time."""
+def test_run_full_cycle_still_picks_up_enrichment_when_opted_out_of_requesting(monkeypatch):
+    """Excluding the REQUEST must not disable PICKUP - anything the user
+    already dropped back should still be imported and benefit this run's
+    scoring, regardless of whether a new request goes out this time."""
     mock_conn = _mock_common(monkeypatch, companies=[COMPANY_NO_DOMAIN], process_results=[NOT_QUALIFIED_RESULT])
 
-    full_pipeline_run.run_full_cycle(include_demographics_enrichment=False)
+    full_pipeline_run.run_full_cycle(include_enrichment_request=False)
 
-    full_pipeline_run.enrichment.process_incoming_demographic_enrichment.assert_called_once_with(mock_conn)
+    full_pipeline_run.enrichment.process_incoming_enrichment.assert_called_once_with(mock_conn)
 
 
 def test_resume_after_enrichment_returns_none_when_nothing_picked_up(monkeypatch):
@@ -435,15 +480,25 @@ def test_resume_after_enrichment_finishes_the_run_when_something_was_picked_up(m
     mock_conn = _mock_common(
         monkeypatch, companies=[COMPANY_WITH_DOMAIN], process_results=[PROCESSED_RESULT]
     )
-    monkeypatch.setattr(
-        full_pipeline_run.enrichment, "process_incoming_domain_enrichment", MagicMock(return_value=[2])
-    )
+    monkeypatch.setattr(full_pipeline_run.enrichment, "process_incoming_enrichment", MagicMock(return_value=[2]))
 
     result = full_pipeline_run.resume_after_enrichment()
 
     assert result["qualified_count"] == 1
     full_pipeline_run.pipeline.process_qualified_lead.assert_called_once()
     full_pipeline_run.discord.send_sdr_digest.assert_called_once()
-    messages = [call.args[0] for call in full_pipeline_run.discord.send_progress_update.call_args_list]
-    assert any("New Clay enrichment detected" in m for m in messages)
+    labels = _progress_labels(full_pipeline_run.discord.send_progress_bar_update)
+    assert any("New Clay enrichment detected" in m for m in labels)
+    mock_conn.close.assert_called_once()
+
+
+def test_resume_after_enrichment_progress_bar_reaches_full_completion(monkeypatch):
+    mock_conn = _mock_common(monkeypatch, companies=[COMPANY_WITH_DOMAIN], process_results=[PROCESSED_RESULT])
+    monkeypatch.setattr(full_pipeline_run.enrichment, "process_incoming_enrichment", MagicMock(return_value=[2]))
+
+    full_pipeline_run.resume_after_enrichment()
+
+    calls = full_pipeline_run.discord.send_progress_bar_update.call_args_list
+    final_current_step, final_total_steps = calls[-1].args[0], calls[-1].args[1]
+    assert final_current_step == final_total_steps == full_pipeline_run.AUTO_RESUME_TOTAL_STEPS
     mock_conn.close.assert_called_once()

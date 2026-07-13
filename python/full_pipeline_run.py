@@ -51,26 +51,48 @@ from scoring import score_company  # noqa: E402
 # comfortable per-embed field count (utils/discord.py's DIGEST_LEADS_PER_EMBED).
 WATCHLIST_SIZE = 15
 
-# Redesign v2, Tier 5: which Clay enrichment queue maps to which
-# queue-check/export function NAME pair, walked in order by the request
-# phase - keeps that phase a short loop instead of two near-identical
-# hand-written blocks. Looked up as attribute names (not bound function
-# references) so tests can monkeypatch enrichment.<name> after import time
-# and still have this phase pick up the replacement.
-CLAY_QUEUES = [
-    ("domain", "get_companies_needing_domain", "export_companies_needing_domain"),
-    ("demographics", "get_companies_needing_demographics", "export_companies_needing_demographics"),
-]
+# Redesign v2: fixed step counts for each trigger's tracker, so the
+# progress bar always reaches a clean 100% at completion. Every phase
+# always calls tracker.advance() exactly once, even a no-op/skipped one
+# (the label reflects the real outcome; the step count is deterministic).
+FULL_RUN_TOTAL_STEPS = 12  # Branch A/B/D/C, Merge, Clay pickup/request, Leadership, Scoring, Digest, Run log, Complete
+AUTO_RESUME_TOTAL_STEPS = 5  # Leadership, Scoring, Digest, Run log, Complete
 
 
-def _run_phase(label: str, fn, *args, **kwargs):
-    """Runs one phase, posting a ❌ progress message and re-raising on
-    failure - the single place this fail-loud policy is implemented, so
-    every phase gets identical error-visibility behavior."""
+class ProgressTracker:
+    """Redesign v2: wraps one live-editing Discord message across an
+    entire run, instead of the old one-new-message-per-phase approach
+    (~10-15 messages per run before this). Created once at the top of
+    run_full_cycle()/resume_after_enrichment() with that trigger's real
+    total step count."""
+
+    def __init__(self, total_steps: int, initial_label: str):
+        self.total_steps = total_steps
+        self.current_step = 0
+        self.message_id = discord.send_progress_bar_update(0, total_steps, initial_label)
+
+    def advance(self, label: str) -> None:
+        self.current_step += 1
+        self.message_id = discord.send_progress_bar_update(self.current_step, self.total_steps, label, self.message_id)
+
+    def fail(self, label: str, exc: Exception) -> None:
+        """Freezes the bar at its current step, swaps the label to a real
+        ❌ failure line - the run stops right after this, so no further
+        advance() calls happen."""
+        self.message_id = discord.send_progress_bar_update(
+            self.current_step, self.total_steps, f"❌ FAILED at {label}: {exc}", self.message_id
+        )
+
+
+def _run_phase(tracker: ProgressTracker, label: str, fn, *args, **kwargs):
+    """Runs one phase, freezing the live progress bar with a ❌ failure
+    line and re-raising on failure - the single place this fail-loud
+    policy is implemented, so every phase gets identical error-visibility
+    behavior."""
     try:
         return fn(*args, **kwargs)
     except Exception as exc:
-        discord.send_progress_update(f"❌ {label} failed: {exc}")
+        tracker.fail(label, exc)
         raise
 
 
@@ -95,15 +117,15 @@ def run_full_cycle(
     include_branch_c: bool = False,
     branch_c_competitors: dict | None = None,
     dedup_window_days: int = pipeline.DEFAULT_DEDUP_WINDOW_DAYS,
-    include_demographics_enrichment: bool = True,
+    include_enrichment_request: bool = True,
 ) -> dict:
     """Runs the entire pipeline live, in-process, posting progress to
     Discord along the way, then sends the SDR digest. Returns a summary
     dict describing every phase's outcome."""
-    start_message = "🚀 Starting full pipeline run..."
+    initial_label = "🚀 Starting full pipeline run..."
     if include_branch_c:
-        start_message = "🚀 Starting full pipeline run (Branch C included — real Apify cost)..."
-    discord.send_progress_update(start_message)
+        initial_label = "🚀 Starting full pipeline run (Branch C included — real Apify cost)..."
+    tracker = ProgressTracker(FULL_RUN_TOTAL_STEPS, initial_label)
 
     # Redesign v2, Tier 3: accumulates the real query parameters and result
     # counts from every phase, landed as data/raw/run_log_<timestamp>.json
@@ -113,14 +135,14 @@ def run_full_cycle(
     # instead of guessed at.
     query_log: dict = {"run_started_at": datetime.now(timezone.utc).isoformat()}
 
-    funding_signals = _run_phase("Branch A (funding)", funding_edgar.get_funding_signals)
-    _run_phase("Landing Branch A", raw_landing.save_raw_signals, "branch_a", funding_signals)
-    discord.send_progress_update(f"✅ Branch A (funding): {len(funding_signals)} signals landed.")
+    funding_signals = _run_phase(tracker, "Branch A (funding)", funding_edgar.get_funding_signals)
+    _run_phase(tracker, "Landing Branch A", raw_landing.save_raw_signals, "branch_a", funding_signals)
+    tracker.advance(f"✅ Branch A (funding): {len(funding_signals)} signals landed.")
     query_log["branch_a"] = {"count": len(funding_signals)}
 
-    hiring_signal_list = _run_phase("Branch B (hiring)", hiring_signals.get_hiring_signals)
-    _run_phase("Landing Branch B", raw_landing.save_raw_signals, "branch_b", hiring_signal_list)
-    discord.send_progress_update(f"✅ Branch B (hiring): {len(hiring_signal_list)} signals landed.")
+    hiring_signal_list = _run_phase(tracker, "Branch B (hiring)", hiring_signals.get_hiring_signals)
+    _run_phase(tracker, "Landing Branch B", raw_landing.save_raw_signals, "branch_b", hiring_signal_list)
+    tracker.advance(f"✅ Branch B (hiring): {len(hiring_signal_list)} signals landed.")
     query_log["branch_b"] = {
         "count": len(hiring_signal_list),
         "companies": [
@@ -135,9 +157,9 @@ def run_full_cycle(
         ],
     }
 
-    launch_signals = _run_phase("Branch D (launches)", producthunt_launches.get_launch_signals)
-    _run_phase("Landing Branch D", raw_landing.save_raw_signals, "branch_d", launch_signals)
-    discord.send_progress_update(f"✅ Branch D (launches): {len(launch_signals)} signals landed.")
+    launch_signals = _run_phase(tracker, "Branch D (launches)", producthunt_launches.get_launch_signals)
+    _run_phase(tracker, "Landing Branch D", raw_landing.save_raw_signals, "branch_d", launch_signals)
+    tracker.advance(f"✅ Branch D (launches): {len(launch_signals)} signals landed.")
     query_log["branch_d"] = {"count": len(launch_signals)}
 
     branch_c_review_count = None
@@ -152,38 +174,41 @@ def run_full_cycle(
         )
 
         if not effective_competitors:
-            discord.send_progress_update(
+            tracker.advance(
                 "⏭️ Branch C included but skipped — no tracked competitor mentions found in this run's Branch B data."
             )
             query_log["branch_c"] = {"included": True, "skipped_reason": "no tracked competitor mentions this run"}
         else:
-            discord.send_progress_update(
-                f"✅ Branch C (G2 intent): scraping reviews for {len(effective_competitors)} "
-                f"competitor(s) mentioned this run: {', '.join(sorted(effective_competitors))}."
-            )
             branch_c_result = _run_phase(
-                "Branch C (G2 intent)", intent_g2.get_intent_signals, competitors=effective_competitors
+                tracker, "Branch C (G2 intent)", intent_g2.get_intent_signals, competitors=effective_competitors
             )
-            _run_phase("Landing Branch C", raw_landing.save_raw_signals, "branch_c", branch_c_result)
+            _run_phase(tracker, "Landing Branch C", raw_landing.save_raw_signals, "branch_c", branch_c_result)
             branch_c_review_count = len(branch_c_result["reviews"])
-            discord.send_progress_update(f"✅ Branch C (G2 intent): {branch_c_review_count} reviews landed.")
+            tracker.advance(
+                f"✅ Branch C (G2 intent): {branch_c_review_count} reviews landed for "
+                f"{len(effective_competitors)} competitor(s)."
+            )
             query_log["branch_c"] = {
                 "included": True,
                 "competitors_used": effective_competitors,
                 "review_count": branch_c_review_count,
             }
     else:
-        discord.send_progress_update("⏭️ Branch C skipped (opt-in only, ADR-009).")
+        tracker.advance("⏭️ Branch C skipped (opt-in only, ADR-009).")
         query_log["branch_c"] = {"included": False, "skipped_reason": "opt-in only, ADR-009"}
 
     conn = db.get_connection()
     try:
-        merge_result = _run_phase("Merge", merge_signals.run_full_merge, conn)
-        discord.send_progress_update(f"✅ Merge complete: {merge_result['distinct_company_ids']} distinct companies touched.")
+        merge_result = _run_phase(tracker, "Merge", merge_signals.run_full_merge, conn)
+        tracker.advance(
+            f"✅ Supabase updated: {merge_result['distinct_company_ids']} companies written/updated "
+            f"(A:{merge_result['companies_from_funding']} B:{merge_result['companies_from_hiring']} "
+            f"D:{merge_result['companies_from_launches']}, {merge_result['competitors_updated']} competitor(s) refreshed)."
+        )
 
-        _run_clay_pickup_and_request_phase(conn, query_log, include_demographics_enrichment=include_demographics_enrichment)
+        _run_clay_pickup_and_request_phase(conn, query_log, tracker, include_enrichment_request=include_enrichment_request)
 
-        finish_result = _finish_run(conn, dedup_window_days, trigger_label="full_run", query_log=query_log)
+        finish_result = _finish_run(conn, dedup_window_days, trigger_label="full_run", tracker=tracker, query_log=query_log)
 
         return {
             **finish_result,
@@ -197,72 +222,74 @@ def run_full_cycle(
         conn.close()
 
 
-def _run_clay_pickup_and_request_phase(conn, query_log: dict, include_demographics_enrichment: bool = True) -> None:
-    """Redesign v2, Tier 5: the human-in-the-loop Clay phase, run once
+def _run_clay_pickup_and_request_phase(
+    conn, query_log: dict, tracker: ProgressTracker, include_enrichment_request: bool = True
+) -> None:
+    """Redesign v2, Tier 5/6: the human-in-the-loop Clay phase, run once
     right after Merge, before scoring - so anything picked up here benefits
     THIS run's scoring instead of waiting for a later run.
 
+    Consolidated 2026-07-13 into a single enrichment queue (was two -
+    domain-only, demographics-only) since Clay's real "Company Enrichment"
+    waterfall already returns domain + employee count + industry together
+    in one pass - there was never a real reason to run two separate
+    request/import tracks for data one enrichment call provides.
+
     Pickup always runs first (auto-imports anything already dropped back
-    into data/clay/incoming_*/ since the last check - see
-    enrichment.process_incoming_domain_enrichment()/
-    process_incoming_demographic_enrichment()) for BOTH queues regardless
-    of include_demographics_enrichment - picking up already-completed work
-    is always safe and keeps data current, unlike requesting NEW work.
+    into data/clay/incoming_enrichment/ since the last check - see
+    enrichment.process_incoming_enrichment()) - picking up already-completed
+    work is always safe and keeps data current, unlike requesting NEW work.
 
-    Request runs second: for each queue that's still non-empty after
-    pickup, exports a fresh CSV and posts it to #clay-enrichment via
+    Request runs second: if the queue is still non-empty after pickup,
+    exports a fresh CSV and posts it to #clay-enrichment via
     discord.send_clay_enrichment_request() so the user knows exactly what
-    still needs manual Clay work. The demographics half can be excluded
-    for a given run via include_demographics_enrichment=False (mirrors
-    include_branch_c's "opt out of a whole optional phase" pattern) - e.g.
-    while deliberately focusing a test run on domain enrichment only,
-    without the demographics queue re-posting noise every run."""
-    domain_picked_up = enrichment.process_incoming_domain_enrichment(conn)
-    demographics_picked_up = enrichment.process_incoming_demographic_enrichment(conn)
-    total_picked_up = len(domain_picked_up) + len(demographics_picked_up)
-    if total_picked_up:
-        discord.send_progress_update(
-            f"✅ Clay enrichment picked up: {total_picked_up} companies updated from prior manual enrichment."
-        )
-    query_log["clay_pickup"] = {
-        "domain_updated": len(domain_picked_up),
-        "demographics_updated": len(demographics_picked_up),
-    }
+    still needs manual Clay work. Can be skipped for a given run via
+    include_enrichment_request=False (mirrors include_branch_c's "opt out
+    of a whole optional phase" pattern)."""
+    picked_up = enrichment.process_incoming_enrichment(conn)
+    if picked_up:
+        tracker.advance(f"✅ Clay enrichment picked up: {len(picked_up)} companies updated from prior manual enrichment.")
+    else:
+        tracker.advance("✅ Clay pickup checked: nothing new to import.")
+    query_log["clay_pickup"] = {"updated": len(picked_up)}
 
-    clay_requests = {}
-    for kind, get_queue_fn_name, export_fn_name in CLAY_QUEUES:
-        if kind == "demographics" and not include_demographics_enrichment:
-            discord.send_progress_update("⏭️ Clay demographics enrichment request skipped (excluded for this run).")
-            clay_requests["demographics"] = {"skipped": True, "reason": "excluded for this run"}
-            continue
+    if not include_enrichment_request:
+        tracker.advance("⏭️ Clay enrichment request skipped (excluded for this run).")
+        query_log["clay_request"] = {"skipped": True, "reason": "excluded for this run"}
+        return
 
-        queue = getattr(enrichment, get_queue_fn_name)(conn)
-        if not queue:
-            continue
-        path = getattr(enrichment, export_fn_name)(conn)
-        _run_phase(f"Clay enrichment request ({kind})", discord.send_clay_enrichment_request, kind, len(queue), path)
-        discord.send_progress_update(f"📤 Clay enrichment requested: {len(queue)} companies need {kind} enrichment.")
-        clay_requests[kind] = {"count": len(queue), "export_path": path}
-    query_log["clay_requests"] = clay_requests
+    queue = enrichment.get_companies_needing_enrichment(conn)
+    if not queue:
+        tracker.advance("✅ Clay enrichment request: nothing needed, every company fully enriched.")
+        query_log["clay_request"] = {"count": 0}
+        return
+
+    path = enrichment.export_companies_needing_enrichment(conn)
+    _run_phase(tracker, "Clay enrichment request", discord.send_clay_enrichment_request, len(queue), path)
+    tracker.advance(f"📤 Clay enrichment requested: {len(queue)} companies need enrichment.")
+    query_log["clay_request"] = {"count": len(queue), "export_path": path}
 
 
-def _finish_run(conn, dedup_window_days: int, trigger_label: str, query_log: dict | None = None) -> dict:
+def _finish_run(conn, dedup_window_days: int, trigger_label: str, tracker: ProgressTracker, query_log: dict | None = None) -> dict:
     """The shared tail every real run ends with, regardless of how it
     started - leadership check -> scoring/outreach -> watchlist -> SDR
     digest -> run log landing. Used by both a fresh full run (run_full_cycle)
     and an automatic resume-after-enrichment (resume_after_enrichment), so
     the two paths can never drift apart into subtly different scoring or
-    digest behavior."""
+    digest behavior. Always advances the shared tracker exactly 5 times
+    (leadership, scoring, digest, run log, complete), matching both
+    callers' declared total step counts."""
     query_log = query_log if query_log is not None else {"run_started_at": datetime.now(timezone.utc).isoformat()}
     query_log["trigger"] = trigger_label
 
     domain_companies = [c for c in db.get_all_companies(conn) if c.get("domain")]
     leadership_results = _run_phase(
+        tracker,
         "Leadership check",
         lambda: [leadership_monitor.check_for_new_leadership(conn, c["id"], c["domain"]) for c in domain_companies],
     )
     leadership_new_hires = sum(1 for r in leadership_results if r)
-    discord.send_progress_update(
+    tracker.advance(
         f"✅ Leadership check: {len(domain_companies)} companies checked, {leadership_new_hires} new hire(s) found."
     )
     query_log["leadership"] = {
@@ -287,9 +314,9 @@ def _finish_run(conn, dedup_window_days: int, trigger_label: str, query_log: dic
             )
         return results
 
-    results = _run_phase("Scoring + outreach", _score_all)
+    results = _run_phase(tracker, "Scoring + outreach", _score_all)
     qualified_leads = [r for r in results if r["status"] == "processed"]
-    discord.send_progress_update(
+    tracker.advance(
         f"✅ Scoring + outreach complete: {len(all_companies)} evaluated, {len(qualified_leads)} qualified and processed."
     )
     query_log["scoring"] = [
@@ -306,12 +333,13 @@ def _finish_run(conn, dedup_window_days: int, trigger_label: str, query_log: dic
     watchlist = sorted(watchlist_candidates, key=lambda r: r.get("icp_score", 0), reverse=True)[:WATCHLIST_SIZE]
 
     summary = {"date": date.today().isoformat(), "qualified_leads": qualified_leads, "watchlist": watchlist}
-    _run_phase("SDR digest", discord.send_sdr_digest, summary)
+    _run_phase(tracker, "SDR digest", discord.send_sdr_digest, summary)
+    tracker.advance("📧 SDR digest sent.")
 
-    log_path = _run_phase("Landing run log", raw_landing.save_raw_signals, "run_log", query_log)
-    discord.send_progress_update(f"📝 Full run log saved: {log_path}")
+    log_path = _run_phase(tracker, "Landing run log", raw_landing.save_raw_signals, "run_log", query_log)
+    tracker.advance(f"📝 Full run log saved: {log_path}")
 
-    discord.send_progress_update("🏁 Full pipeline run complete.")
+    tracker.advance("🏁 Full pipeline run complete.")
 
     return {
         "companies_evaluated": len(all_companies),
@@ -327,9 +355,9 @@ def resume_after_enrichment(dedup_window_days: int = pipeline.DEFAULT_DEDUP_WIND
     api/main.py's background poller every ~60s (and available as a manual
     on-demand trigger via POST /pipeline/resume-after-enrichment).
 
-    Opens its own connection, checks both incoming_* folders for anything
-    the user has dropped back since the last check. If nothing new was
-    picked up, it's a genuine no-op - returns None so the poller doesn't
+    Opens its own connection, checks the incoming_enrichment/ folder for
+    anything the user has dropped back since the last check. If nothing new
+    was picked up, it's a genuine no-op - returns None so the poller doesn't
     post noise every single tick. If something WAS picked up, it means the
     user just finished a manual Clay round-trip, so this finishes the
     workflow for them automatically: same leadership check -> scoring ->
@@ -337,19 +365,17 @@ def resume_after_enrichment(dedup_window_days: int = pipeline.DEFAULT_DEDUP_WIND
     freshly-imported data - no manual re-trigger required."""
     conn = db.get_connection()
     try:
-        domain_picked_up = enrichment.process_incoming_domain_enrichment(conn)
-        demographics_picked_up = enrichment.process_incoming_demographic_enrichment(conn)
-        if not domain_picked_up and not demographics_picked_up:
+        picked_up = enrichment.process_incoming_enrichment(conn)
+        if not picked_up:
             return None
 
-        discord.send_progress_update("🔄 New Clay enrichment detected — automatically resuming the pipeline...")
+        tracker = ProgressTracker(
+            AUTO_RESUME_TOTAL_STEPS, "🔄 New Clay enrichment detected — automatically resuming the pipeline..."
+        )
         query_log = {
             "run_started_at": datetime.now(timezone.utc).isoformat(),
-            "clay_pickup": {
-                "domain_updated": len(domain_picked_up),
-                "demographics_updated": len(demographics_picked_up),
-            },
+            "clay_pickup": {"updated": len(picked_up)},
         }
-        return _finish_run(conn, dedup_window_days, trigger_label="auto-resume", query_log=query_log)
+        return _finish_run(conn, dedup_window_days, trigger_label="auto-resume", tracker=tracker, query_log=query_log)
     finally:
         conn.close()

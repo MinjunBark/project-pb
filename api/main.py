@@ -161,7 +161,7 @@ class RunFullCycleRequest(BaseModel):
     include_branch_c: bool = False
     branch_c_competitors: dict[str, str] | None = None
     dedup_window_days: int = pipeline.DEFAULT_DEDUP_WINDOW_DAYS
-    include_demographics_enrichment: bool = True
+    include_enrichment_request: bool = True
 
 
 class RunFullCycleResponse(BaseModel):
@@ -298,7 +298,7 @@ def pipeline_run_full_cycle(request: RunFullCycleRequest) -> dict:
         include_branch_c=request.include_branch_c,
         branch_c_competitors=request.branch_c_competitors,
         dedup_window_days=request.dedup_window_days,
-        include_demographics_enrichment=request.include_demographics_enrichment,
+        include_enrichment_request=request.include_enrichment_request,
     )
 
 

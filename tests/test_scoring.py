@@ -282,26 +282,45 @@ def test_intent_bucket_caps_at_40_when_both_tool_severity_and_buying_intent_pres
 # ---------------------------------------------------------------------------
 
 
-def test_demographic_employee_bands_and_saas_confirmation():
-    """Straightforward band + flag check - included mainly so this bucket is
-    proven correct in isolation now, even though it's not live-wired until
-    Phase 7 backfills real employee_count/is_saas data."""
-    small = scoring.score_demographic(_company(employee_count=120, is_saas=True))
-    mid = scoring.score_demographic(_company(employee_count=350, is_saas=False))
+def test_demographic_saas_confirmation_only():
+    """Recalibrated 2026-07-13: the employee-count band bonus was removed
+    (real named Productboard customers range ~1,800-95,000 employees per
+    redesign/01-trigger-prompt-filled-productboard.md's real research -
+    too wide a range for company size to be a meaningful positive signal).
+    Only the is_saas confirmation bonus remains."""
+    saas_co = scoring.score_demographic(_company(employee_count=120, is_saas=True))
+    non_saas_co = scoring.score_demographic(_company(employee_count=350, is_saas=False))
+    huge_real_customer_shaped_co = scoring.score_demographic(_company(employee_count=70000, is_saas=True))
 
-    assert small["points"] == 25  # 15 (50-200 band) + 10 (confirmed SaaS)
-    assert mid["points"] == 10  # 200-500 band only, is_saas False earns no bonus here
+    assert saas_co["points"] == 10
+    assert non_saas_co["points"] == 0
+    assert huge_real_customer_shaped_co["points"] == 10  # a Salesforce-scale employee count earns no penalty
 
 
-def test_deductions_existing_customer_and_out_of_range_size_and_non_saas():
-    """Each deduction is an automatic disqualifier in the original blueprint
-    (especially -100 for existing customers) - confirms they apply
-    independently and stack, since a company could trigger more than one."""
+def test_deductions_existing_customer_and_tiny_company_size():
+    """Recalibrated 2026-07-13: removed the employee_count > 1000 and
+    is_saas is False deductions - real named Productboard customers
+    (1,800-95,000 employees, including non-SaaS industries like gaming and
+    medical devices) would have been penalized by both. Only the <20
+    lower-bound size deduction and the existing-customer deduction remain."""
     company = _company(is_existing_customer=True, employee_count=5, is_saas=False)
 
     result = scoring.score_deductions(company)
 
-    assert result["points"] == -100 + -20 + -15
+    assert result["points"] == -100 + -20
+    assert "non_saas" not in result["detail"]
+
+
+def test_deductions_do_not_penalize_a_real_enterprise_scale_employee_count():
+    """A Medtronic/Salesforce-scale company (tens of thousands of employees)
+    must not be penalized - this was the exact real-world case the old
+    >1000 deduction got wrong."""
+    company = _company(employee_count=95000, is_saas=False)
+
+    result = scoring.score_deductions(company)
+
+    assert result["points"] == 0
+    assert result["detail"] == {}
 
 
 # ---------------------------------------------------------------------------

@@ -113,6 +113,49 @@ def send_progress_update(message: str) -> None:
     resp.raise_for_status()
 
 
+# Redesign v2: a single, live-editing progress message for #ops-progress
+# instead of a new message per phase (~10-15 messages per run before this).
+# Discord webhooks support editing a message they posted - POST with
+# ?wait=true returns the created message's real id; PATCH
+# .../messages/{id} edits that same message in place. No bot token needed,
+# reuses the existing DISCORD_PROGRESS_WEBHOOK_URL.
+PROGRESS_BAR_SEGMENTS = 20
+
+
+def _build_progress_bar_text(current_step: int, total_steps: int, label: str) -> str:
+    """Pure, no network - e.g. "[████████░░░░░░░░░░░░] 40% — ✅ Branch A
+    (funding): 22 signals landed." total_steps=0 (shouldn't happen in
+    practice, but avoids a divide-by-zero) renders an empty bar at 0%."""
+    fraction = (current_step / total_steps) if total_steps else 0
+    filled = round(fraction * PROGRESS_BAR_SEGMENTS)
+    bar = "█" * filled + "░" * (PROGRESS_BAR_SEGMENTS - filled)
+    percent = round(fraction * 100)
+    return f"[{bar}] {percent}% — {label}"
+
+
+def send_progress_bar_update(current_step: int, total_steps: int, label: str, message_id: str | None = None) -> str:
+    """Posts a NEW live-progress message (message_id=None - uses ?wait=true
+    to capture the real Discord message id in the response) or edits an
+    EXISTING one (message_id given - PATCH). Returns the message id either
+    way, so a caller threads it into the next call to keep editing the
+    same message. Raises RuntimeError if DISCORD_PROGRESS_WEBHOOK_URL isn't
+    set (same convention as every other send_* function)."""
+    webhook_url = os.environ.get("DISCORD_PROGRESS_WEBHOOK_URL")
+    if not webhook_url:
+        raise RuntimeError("DISCORD_PROGRESS_WEBHOOK_URL must be set in .env")
+
+    content = _build_progress_bar_text(current_step, total_steps, label)
+
+    if message_id is None:
+        resp = requests.post(webhook_url, params={"wait": "true"}, json={"content": content}, timeout=15)
+        resp.raise_for_status()
+        return resp.json()["id"]
+
+    resp = requests.patch(f"{webhook_url}/messages/{message_id}", json={"content": content}, timeout=15)
+    resp.raise_for_status()
+    return message_id
+
+
 # Discord hard limits: max 25 fields per embed, max 10 embeds per message,
 # ~6000 total characters across all embeds in one message. These constants
 # keep a real digest comfortably under those limits even though every real
@@ -303,18 +346,18 @@ def send_sdr_digest(summary: dict) -> None:
     resp.raise_for_status()
 
 
-# Redesign v2, Tier 5: Discord-driven Clay human-in-the-loop. The user drops
-# the enriched CSV into the matching known folder (see python/enrichment.py's
-# CLAY_INCOMING_DOMAIN_DIR / CLAY_INCOMING_DEMOGRAPHICS_DIR) - no script
-# invocation needed, api/main.py's background poller (or the next full run)
-# detects and imports it automatically.
-CLAY_INCOMING_DIRS = {
-    "domain": "data/clay/incoming_domain",
-    "demographics": "data/clay/incoming_demographics",
-}
+# Redesign v2, Tier 5/6: Discord-driven Clay human-in-the-loop. The user
+# drops the enriched CSV into the known folder (see python/enrichment.py's
+# CLAY_INCOMING_ENRICHMENT_DIR) or uploads it directly to #clay-enrichment
+# (utils/discord_bot.py) - no script invocation needed, api/main.py's
+# background poller (or the next full run) detects and imports it
+# automatically. Consolidated 2026-07-13 from two separate queues (domain,
+# demographics) into one, since Clay's real "Company Enrichment" waterfall
+# already returns domain + employee count + industry in a single pass.
+CLAY_INCOMING_ENRICHMENT_DIR = "data/clay/incoming_enrichment"
 
 
-def send_clay_enrichment_request(kind: str, count: int, csv_path: str) -> None:
+def send_clay_enrichment_request(count: int, csv_path: str) -> None:
     """POSTs to DISCORD_CLAY_ENRICHMENT_WEBHOOK_URL with the real export CSV attached
     as a file (Discord webhooks support multipart file uploads via
     payload_json + files, not just JSON), plus exact instructions for the
@@ -325,12 +368,12 @@ def send_clay_enrichment_request(kind: str, count: int, csv_path: str) -> None:
     if not webhook_url:
         raise RuntimeError("DISCORD_CLAY_ENRICHMENT_WEBHOOK_URL must be set in .env")
 
-    incoming_dir = CLAY_INCOMING_DIRS.get(kind, f"data/clay/incoming_{kind}")
     message = (
-        f"🧩 {count} companies need {kind} enrichment.\n\n"
+        f"🧩 {count} companies need enrichment.\n\n"
         f"1. Download the attached CSV and import it into your Clay table.\n"
-        f"2. Run waterfall enrichment, then export the result.\n"
-        f"3. Drop the exported file into `{incoming_dir}/` on this machine.\n"
+        f"2. Run the \"Company Enrichment\" waterfall, then export the result.\n"
+        f"3. Drop the exported file into `{CLAY_INCOMING_ENRICHMENT_DIR}/` on this machine "
+        f"(or upload it here in #clay-enrichment).\n"
         f"4. The pipeline automatically detects and imports it within about a minute - "
         f"no need to re-run anything yourself."
     )

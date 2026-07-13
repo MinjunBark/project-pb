@@ -216,7 +216,7 @@ def test_run_full_cycle_endpoint_calls_full_pipeline_run_with_request_fields(mon
             "include_branch_c": True,
             "branch_c_competitors": {"Aha!": "aha"},
             "dedup_window_days": 3,
-            "include_demographics_enrichment": False,
+            "include_enrichment_request": False,
         },
     )
 
@@ -226,7 +226,7 @@ def test_run_full_cycle_endpoint_calls_full_pipeline_run_with_request_fields(mon
         include_branch_c=True,
         branch_c_competitors={"Aha!": "aha"},
         dedup_window_days=3,
-        include_demographics_enrichment=False,
+        include_enrichment_request=False,
     )
 
 

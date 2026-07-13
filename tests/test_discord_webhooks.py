@@ -122,6 +122,65 @@ def test_send_progress_update_posts_plain_content_to_configured_url(monkeypatch)
     assert kwargs["json"] == {"content": "✅ Branch A (funding): 22 signals landed."}
 
 
+# ---------------------------------------------------------------------------
+# Redesign v2: live, single-message progress bar (edits in place)
+# ---------------------------------------------------------------------------
+
+
+def test_build_progress_bar_text_at_zero_percent():
+    text = discord._build_progress_bar_text(0, 12, "🚀 Starting full pipeline run...")
+    assert text.startswith("[░░░░░░░░░░░░░░░░░░░░] 0% —")
+    assert "🚀 Starting full pipeline run..." in text
+
+
+def test_build_progress_bar_text_at_fifty_percent():
+    text = discord._build_progress_bar_text(6, 12, "✅ Merge complete")
+    assert "[██████████░░░░░░░░░░] 50%" in text
+
+
+def test_build_progress_bar_text_at_full_percent():
+    text = discord._build_progress_bar_text(12, 12, "🏁 Full pipeline run complete.")
+    assert "[████████████████████] 100%" in text
+
+
+def test_send_progress_bar_update_requires_webhook_url(monkeypatch):
+    monkeypatch.delenv("DISCORD_PROGRESS_WEBHOOK_URL", raising=False)
+
+    with pytest.raises(RuntimeError, match="DISCORD_PROGRESS_WEBHOOK_URL"):
+        discord.send_progress_bar_update(0, 12, "Starting")
+
+
+def test_send_progress_bar_update_posts_new_message_and_returns_real_id(monkeypatch):
+    """No message_id given - must POST with wait=true to capture Discord's
+    real message id, not just fire-and-forget like send_progress_update()."""
+    monkeypatch.setenv("DISCORD_PROGRESS_WEBHOOK_URL", "https://discord.com/api/webhooks/progress/fake")
+    mock_response = MagicMock(status_code=200)
+    mock_response.json.return_value = {"id": "999888777"}
+    mock_post = MagicMock(return_value=mock_response)
+    monkeypatch.setattr(discord.requests, "post", mock_post)
+
+    message_id = discord.send_progress_bar_update(0, 12, "🚀 Starting full pipeline run...")
+
+    assert message_id == "999888777"
+    args, kwargs = mock_post.call_args
+    assert args[0] == "https://discord.com/api/webhooks/progress/fake"
+    assert kwargs["params"] == {"wait": "true"}
+
+
+def test_send_progress_bar_update_edits_existing_message_when_id_given(monkeypatch):
+    monkeypatch.setenv("DISCORD_PROGRESS_WEBHOOK_URL", "https://discord.com/api/webhooks/progress/fake")
+    mock_response = MagicMock(status_code=200)
+    mock_patch = MagicMock(return_value=mock_response)
+    monkeypatch.setattr(discord.requests, "patch", mock_patch)
+
+    message_id = discord.send_progress_bar_update(3, 12, "✅ Branch B (hiring): 23 signals landed.", "999888777")
+
+    assert message_id == "999888777"  # same id returned - caller keeps editing this one message
+    args, kwargs = mock_patch.call_args
+    assert args[0] == "https://discord.com/api/webhooks/progress/fake/messages/999888777"
+    assert "23 signals landed" in kwargs["json"]["content"]
+
+
 def test_build_sdr_digest_embed_handles_zero_qualified_leads():
     """The realistic common case per every live run this project has
     measured so far - must read as normal/expected, not alarming."""
@@ -323,7 +382,7 @@ def test_send_clay_enrichment_request_requires_webhook_url(monkeypatch, tmp_path
     csv_path.write_text("company_id,company_name\n1,Acme\n")
 
     with pytest.raises(RuntimeError, match="DISCORD_CLAY_ENRICHMENT_WEBHOOK_URL"):
-        discord.send_clay_enrichment_request("domain", 1, str(csv_path))
+        discord.send_clay_enrichment_request(1, str(csv_path))
 
 
 def test_send_clay_enrichment_request_posts_with_file_attached(monkeypatch, tmp_path):
@@ -331,15 +390,15 @@ def test_send_clay_enrichment_request_posts_with_file_attached(monkeypatch, tmp_
     mock_response = MagicMock(status_code=200)
     mock_post = MagicMock(return_value=mock_response)
     monkeypatch.setattr(discord.requests, "post", mock_post)
-    csv_path = tmp_path / "clay_export_20260713.csv"
+    csv_path = tmp_path / "clay_enrichment_export_20260713.csv"
     csv_path.write_text("company_id,company_name\n1,Acme\n")
 
-    discord.send_clay_enrichment_request("domain", 5, str(csv_path))
+    discord.send_clay_enrichment_request(5, str(csv_path))
 
     args, kwargs = mock_post.call_args
     assert args[0] == "https://discord.com/api/webhooks/clay/fake"
     assert "files" in kwargs
-    assert kwargs["files"]["file"][0] == "clay_export_20260713.csv"
+    assert kwargs["files"]["file"][0] == "clay_enrichment_export_20260713.csv"
     payload = json.loads(kwargs["data"]["payload_json"])
-    assert "5 companies need domain enrichment" in payload["content"]
-    assert "incoming_domain" in payload["content"]
+    assert "5 companies need enrichment" in payload["content"]
+    assert "incoming_enrichment" in payload["content"]
